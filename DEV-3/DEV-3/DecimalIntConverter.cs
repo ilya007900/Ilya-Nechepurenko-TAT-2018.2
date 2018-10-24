@@ -11,30 +11,30 @@ namespace DEV_3
         /// <summary>
         /// Converts deciaml int in the new number system 
         /// </summary>
-        /// <param name="number">number for converting</param>
-        /// <param name="system">new number system</param>
-        /// <returns>number as string in the new number system</returns>
-        public string ConvertToNewSystem(int number, int system)
+        /// <param name="value">value for converting</param>
+        /// <param name="toBase">new number system</param>
+        /// <returns>value as string in the new number system</returns>
+        public string ConvertToNewSystem(int value, int toBase)
         {
-            if (system < 2 || system > 20) 
+            if (toBase < 2 || toBase > 20) 
             {
                 throw new Exception("Error number of system");
             }
 
-            bool isPositive = number >= 0;
+            bool isPositive = value >= 0;
             if (!isPositive)
             {
-                number = Math.Abs(number);
+                value = Math.Abs(value);
             }
             string symbolsOfSystems = "0123456789ABCDEFGHIJ";
             StringBuilder reverseResult = new StringBuilder();
 
             do
             {
-                reverseResult.Append(symbolsOfSystems[number % system]);
-                number /= system;
+                reverseResult.Append(symbolsOfSystems[value % toBase]);
+                value /= toBase;
             }
-            while (number != 0);
+            while (value != 0);
 
             if (!isPositive)
             {
