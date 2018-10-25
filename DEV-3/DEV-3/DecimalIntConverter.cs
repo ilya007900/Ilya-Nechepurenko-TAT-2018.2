@@ -8,15 +8,18 @@ namespace DEV_3
     /// </summary>
     class DecimalIntConverter
     {
+        private readonly string symbolsOfSystems = "0123456789ABCDEFGHIJ";
+        private readonly int minBase = 2;
+        private readonly int maxBase = 20;
         /// <summary>
-        /// Converts deciaml int in the new number system 
+        /// Converts int to its equivalent string representation in a specified base 
         /// </summary>
-        /// <param name="value">value for converting</param>
-        /// <param name="toBase">new number system</param>
-        /// <returns>value as string in the new number system</returns>
+        /// <param name="value">the int value to convert</param>
+        /// <param name="toBase">the base of the return value</param>
+        /// <returns>value as string in the new base</returns>
         public string ConvertToNewSystem(int value, int toBase)
         {
-            if (toBase < 2 || toBase > 20) 
+            if (toBase < minBase || toBase > maxBase) 
             {
                 throw new Exception("Error number of system");
             }
@@ -26,7 +29,6 @@ namespace DEV_3
             {
                 value = Math.Abs(value);
             }
-            string symbolsOfSystems = "0123456789ABCDEFGHIJ";
             StringBuilder reverseResult = new StringBuilder();
 
             do
