@@ -2,38 +2,42 @@
 
 namespace DEV_3
 {
+    /// <summary>
+    /// This programm gets two parameters from the command line 
+    /// and converts first parameter to new base from second parameter
+    /// </summary>
     class DEV3
     {
         /// <summary>
         /// Entry point
         /// </summary>
-        /// <param name="args">arguments from command line</param>
+        /// <param name="args">arguments of command line</param>
         static void Main(string[] args)
         {
             try
             {
                 if (args.Length < 2)
                 {
-                    Console.WriteLine("Not enough parameters");
-                    return;
+                    throw new Exception("Not enough parameters");
                 }
                 if (args.Length > 2)
                 {
-                    Console.WriteLine("Too many parameters");
-                    return;
+                    throw new Exception("Too many parameters");
                 }
-                if (!(int.TryParse(args[0], out int number)))
+                if (!(int.TryParse(args[0], out int value)))
                 {
-                    Console.WriteLine("First parameter is not integer or number");
-                    return;
+                    throw new Exception("First parameter is not integer or number");
                 }
-                if (!(int.TryParse(args[1], out int system)))
+                if (!(int.TryParse(args[1], out int newBase)))
                 {
-                    Console.WriteLine("Second parameter is not integer or number");
-                    return;
+                    throw new Exception("Second parameter is not integer or number");
                 }
-                DecimalIntConverter intConverter = new DecimalIntConverter();
-                Console.WriteLine(intConverter.ConvertToNewSystem(number, system));
+                IntToNewBaseConverter converter= new IntToNewBaseConverter(value);
+                Console.WriteLine(converter.ConvertToNewSystem(newBase));
+            }
+            catch (ArgumentException argEx)
+            {
+                Console.WriteLine(argEx.Message);
             }
             catch (Exception ex) 
             {
