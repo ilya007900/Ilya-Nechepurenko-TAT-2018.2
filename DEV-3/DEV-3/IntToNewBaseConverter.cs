@@ -8,7 +8,7 @@ namespace DEV_3
     /// </summary>
     class IntToNewBaseConverter
     {
-        private readonly static string symbolsOfNewBase = "0123456789ABCDEFGHIJ";
+        private static string SymbolsOfNewBase { get; } = "0123456789ABCDEFGHIJ";
         public static int MinBase { get; } = 2;
         public static int MaxBase { get; } = 20;
         public int Value { get; set; }
@@ -41,7 +41,7 @@ namespace DEV_3
 
             do
             {
-                reverseValueInNewBase.Append(symbolsOfNewBase[tempValue % toBase]);
+                reverseValueInNewBase.Append(SymbolsOfNewBase[tempValue % toBase]);
                 tempValue /= toBase;
             }
             while (tempValue != 0);
