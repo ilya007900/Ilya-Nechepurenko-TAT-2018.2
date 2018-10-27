@@ -8,7 +8,7 @@ namespace LW_List
     class MyList
     {
         /// <summary>
-        /// This class keeps object Car and reference on next car and prevoius car
+        /// This class keeps object Car and reference to next car and prevoius car
         /// </summary>
         private class Node
         {
@@ -29,7 +29,7 @@ namespace LW_List
         /// <summary>
         /// Inserts car in the beginning of MyList
         /// </summary>
-        /// <param name="car">The car to inseted in the beginning of list</param>
+        /// <param name="car">The car to insert in the beginning of list</param>
         public void AddHead(Car car)
         {
             if (Head == null)
@@ -44,7 +44,7 @@ namespace LW_List
         }
 
         /// <summary>
-        /// Writes all Cars on console
+        /// Displays all Cars in console
         /// </summary>
         public void Output()
         {
@@ -64,16 +64,17 @@ namespace LW_List
         }
 
         /// <summary>
-        /// Searchs cars that have one or more same property 
+        /// Searchs and returns Mylist of cars that have one or more same properties
         /// </summary>
-        /// <param name="car">Car for find</param>
-        /// <returns>Object of MyList that contains cars with same property</returns>
+        /// <param name="car">Car for searching</param>
+        /// <returns>Object of MyList that contains cars with one or more same properties</returns>
+        /// <exception cref="NullReferenceException">Thrown when MyList is empty</exception>
         public MyList Search(Car car)
         {
             MyList searcResult = new MyList();
             if (Head == null)
             {
-                throw new Exception("List is empty");
+                throw new NullReferenceException("List is empty");
             }
             else
             {

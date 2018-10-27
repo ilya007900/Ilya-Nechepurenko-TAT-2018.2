@@ -1,6 +1,8 @@
-﻿
-namespace LW_List
+﻿namespace LW_List
 {
+    /// <summary>
+    /// Keeps properties Model, Brand, Color and method that compares cars
+    /// </summary>
     class Car
     {
         public string Model { get; set; }
@@ -14,6 +16,12 @@ namespace LW_List
             Color = color;
         }
 
+        /// <summary>
+        /// Compare two cars
+        /// </summary>
+        /// <param name="car1">The first parameter to compare</param>
+        /// <param name="car2">The second parameter to compare</param>
+        /// <returns>true if all properties are same</returns>
         public static bool CompareCars(Car car1, Car car2)
         {
             if (string.Compare(car1.Model, car2.Model) == 0)
