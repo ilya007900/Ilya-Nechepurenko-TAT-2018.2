@@ -26,10 +26,10 @@ namespace LW_List
                 Console.WriteLine("Cars in list");
                 myList.Output();
                 Car searchCar = new Car("bmw", "x6", "white");
-                MyList searcResult = myList.Search(searchCar);
+                MyList searchResult = myList.Search(searchCar);
                 Console.WriteLine($"Search Car: {searchCar.Model} {searchCar.Brand} {searchCar.Color}");
                 Console.WriteLine("Search result:");
-                searcResult.Output();
+                searchResult.Output();
             }
             catch(Exception ex)
             {

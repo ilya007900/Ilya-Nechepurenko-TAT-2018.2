@@ -71,7 +71,7 @@ namespace LW_List
         /// <exception cref="NullReferenceException">Thrown when MyList is empty</exception>
         public MyList Search(Car car)
         {
-            MyList searcResult = new MyList();
+            MyList searchResult = new MyList();
             if (Head == null)
             {
                 throw new NullReferenceException("List is empty");
@@ -83,12 +83,12 @@ namespace LW_List
                 {
                     if(Car.CompareCars(car, tempHead.Car))
                     {
-                        searcResult.AddHead(tempHead.Car);
+                        searchResult.AddHead(tempHead.Car);
                     }
                     tempHead = tempHead.NextCar;
                 }
             }
-            return searcResult;
+            return searchResult;
         } 
     }
 }
