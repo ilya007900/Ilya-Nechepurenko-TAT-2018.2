@@ -28,7 +28,7 @@ namespace DEV_3
         /// </summary>
         /// <param name="toBase">the base of the return value</param>
         /// <returns>value as string in the new base</returns>
-        /// <exception cref="System.ArgumentException">Twrown when param toBase more maxBase and less minBase</exception>
+        /// <exception cref="System.ArgumentException">Twrown when parameter toBase more maxBase and less minBase</exception>
         public string ConvertToNewSystem(int toBase)
         {
             if (toBase < MinBase || toBase > MaxBase) 
