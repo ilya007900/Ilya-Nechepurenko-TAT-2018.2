@@ -2,8 +2,14 @@
 
 namespace LW_List
 {
+    /// <summary>
+    /// This class keeps objects of class Car
+    /// </summary>
     class MyList
     {
+        /// <summary>
+        /// This class keeps object Car and reference on next car and prevoius car
+        /// </summary>
         private class Node
         {
             public Car Car { get; set; }
@@ -20,6 +26,10 @@ namespace LW_List
 
         private Node Head { get; set; }
 
+        /// <summary>
+        /// Inserts car in the beginning of MyList
+        /// </summary>
+        /// <param name="car">The car to inseted in the beginning of list</param>
         public void AddHead(Car car)
         {
             if (Head == null)
@@ -33,6 +43,9 @@ namespace LW_List
             }
         }
 
+        /// <summary>
+        /// Writes all Cars on console
+        /// </summary>
         public void Output()
         {
             if (Head == null)
@@ -50,6 +63,11 @@ namespace LW_List
             }
         }
 
+        /// <summary>
+        /// Searchs cars that have one or more same property 
+        /// </summary>
+        /// <param name="car">Car for find</param>
+        /// <returns>Object of MyList that contains cars with same property</returns>
         public MyList Search(Car car)
         {
             MyList searcResult = new MyList();

@@ -1,9 +1,15 @@
 ﻿using System;
-
 namespace LW_List
 {
+    /// <summary>
+    /// This class finds cars in MyList class and writes on console cars that have one or more same property
+    /// </summary>
     class MyListSearcher
     {
+        /// <summary>
+        /// Entry point
+        /// </summary>
+        /// <param name="args">arguments from command line</param>
         static void Main(string[] args)
         {
             try
