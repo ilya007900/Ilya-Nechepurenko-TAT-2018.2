@@ -12,6 +12,12 @@ namespace DEV_4
                 XmlFileReader fileReader = new XmlFileReader();
                 string stringXml = fileReader.ReadXmlFile(path);
                 Console.WriteLine(stringXml);
+                Console.WriteLine('\n');
+                XmlParser xmlParser = new XmlParser();
+                foreach (string str in xmlParser.Parse(stringXml))
+                {
+                    Console.WriteLine(str);
+                }
             }
             catch(Exception ex)
             {
