@@ -2,8 +2,15 @@
 
 namespace DEV_4
 {
+    /// <summary>
+    /// This programm gets file from the command line and parses
+    /// </summary>
     class MyXmlHandler
     {
+        /// <summary>
+        /// Entry point
+        /// </summary>
+        /// <param name="args">Arguments from the command line</param>
         static void Main(string[] args)
         {
             try

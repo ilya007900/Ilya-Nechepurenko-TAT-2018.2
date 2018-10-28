@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DEV_4
 {
+    /// <summary>
+    /// Parses Xml string
+    /// </summary>
     class XmlParser
     {
         private int TagNumber { get; set; } = 0;
@@ -24,6 +27,11 @@ namespace DEV_4
             Tag = new StringBuilder();
         }
 
+        /// <summary>
+        /// Parse string xml to strings 
+        /// </summary>
+        /// <returns>xml in strings</returns>
+        /// <exception cref="Exception">thrown if xml file is incorrect</exception>
         public List<string> Parse()
         {
             for (; Position < XmlString.Length; Position++)
@@ -44,6 +52,10 @@ namespace DEV_4
             return XmlAsStrings;
         }
 
+        /// <summary>
+        /// Checks element is begins
+        /// </summary>
+        /// <returns>true if element is begins</returns>
         private bool IsElementStart()
         {
             if (XmlString[Position] == '<' && XmlString[Position + 1] != '/')
@@ -53,6 +65,9 @@ namespace DEV_4
             return false;
         }
 
+        /// <summary>
+        /// Reads element in string
+        /// </summary>
         private void ReadElement()
         {
             ElementFlag = true;
@@ -71,6 +86,10 @@ namespace DEV_4
             Tag.Clear();
         }
 
+        /// <summary>
+        /// Checks element is ending
+        /// </summary>
+        /// <returns>true if element is ending</returns>
         private bool IsElementEnd()
         {
             if (XmlString[Position] == '<' && XmlString[Position + 1] == '/')
@@ -80,6 +99,9 @@ namespace DEV_4
             return false;
         }
 
+        /// <summary>
+        /// Writes element in strings
+        /// </summary>
         private void WriteElement()
         {
             if (ElementFlag)
@@ -96,6 +118,10 @@ namespace DEV_4
             ListOfTags.RemoveAt(TagNumber);
         }
 
+        /// <summary>
+        /// Checks is value is begins
+        /// </summary>
+        /// <returns>true if value is begins</returns>
         private bool IsValueStart()
         {
             if (!SpecialSimbols.Contains(XmlString[Position + 1]))
@@ -105,6 +131,9 @@ namespace DEV_4
             return false;
         }
 
+        /// <summary>
+        /// Reads value in string
+        /// </summary>
         private void ReadValue()
         {
             while (!SpecialSimbols.Contains(XmlString[Position + 1]))
@@ -114,6 +143,9 @@ namespace DEV_4
             }
         }
 
+        /// <summary>
+        /// Skips symbols to skip
+        /// </summary>
         private void SkipSymbols()
         {
             while (SymbolsToSkip.Contains(XmlString[Position + 1]))
@@ -122,6 +154,9 @@ namespace DEV_4
             }
         }
 
+        /// <summary>
+        /// Reads tag in string
+        /// </summary>
         private void ReadTag()
         {
             while (XmlString[Position] != '>')
