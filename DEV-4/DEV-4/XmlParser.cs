@@ -10,9 +10,8 @@ namespace DEV_4
         private string XmlString { get; set; }
         private int Position { get; set; } = 0;
         private bool ElementFlag { get; set; } = false;
-        private bool ValueFlag { get; set; } = false;
         private List<string> XmlAsStrings { get; set; }
-        private List<string> ChainOfTags { get; set; }
+        private List<string> ListOfTags { get; set; }
         private StringBuilder Tag { get; set; }
         private static string SpecSimb { get; set; } = "\n\r\t <>";
         private static string SymbolsToSkip { get; set; } = "\n\t\r ";
@@ -21,7 +20,7 @@ namespace DEV_4
         {
             XmlString = xmlString;
             XmlAsStrings = new List<string>();
-            ChainOfTags = new List<string>();
+            ListOfTags = new List<string>();
             Tag = new StringBuilder();
         }
 
@@ -64,7 +63,7 @@ namespace DEV_4
 
             ReadValue();
 
-            ChainOfTags.Add(Tag.ToString());
+            ListOfTags.Add(Tag.ToString());
             Tag.Clear();
         }
 
@@ -81,16 +80,16 @@ namespace DEV_4
         {
             if (ElementFlag)
             {
-                StringBuilder big = new StringBuilder();
-                foreach (string s in ChainOfTags)
+                StringBuilder chainOfTagsAsString = new StringBuilder();
+                foreach (string s in ListOfTags)
                 {
-                    big.Append(s);
+                    chainOfTagsAsString.Append(s);
                 }
-                XmlAsStrings.Add(big.ToString());
+                XmlAsStrings.Add(chainOfTagsAsString.ToString());
                 ElementFlag = false;
             }
             TagNumber--;
-            ChainOfTags.RemoveAt(TagNumber);
+            ListOfTags.RemoveAt(TagNumber);
         }
 
         private bool IsValueStart()
