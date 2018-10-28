@@ -37,6 +37,10 @@ namespace DEV_4
                     WriteElement();
                 }
             }
+            if (TagNumber != 0)
+            {
+                throw new Exception("Incorrect xml file");
+            }
             return XmlAsStrings;
         }
 

@@ -20,7 +20,11 @@ namespace DEV_4
                 xml.Output();
                 
             }
-            catch(Exception ex)
+            catch(ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Incorrect Xml file");
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
