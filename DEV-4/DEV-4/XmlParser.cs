@@ -29,19 +29,19 @@ namespace DEV_4
         {
             for (; Position < XmlString.Length; Position++)
             {
-                if (IsElemStart())
+                if (IsElementStart())
                 {
-                    ElemStart();
+                    ReadElement();
                 }
-                if (IsElemEnd())
+                if (IsElementEnd())
                 {
-                    ElemEnd();
+                    WriteElement();
                 }
             }
             return XmlAsStrings;
         }
 
-        private bool IsElemStart()
+        private bool IsElementStart()
         {
             if (XmlString[Position] == '<' && XmlString[Position + 1] != '/')
             {
@@ -50,34 +50,34 @@ namespace DEV_4
             return false;
         }
 
-        private void ElemStart()
+        private void ReadElement()
         {
             ElementFlag = true;
             TagNumber++;
             Position++;
 
             ReadTag();
-            
+
             Tag.Append("->");
 
             SkipSymbols();
 
             ReadValue();
-            
+
             ChainOfTags.Add(Tag.ToString());
             Tag.Clear();
         }
 
-        private bool IsElemEnd()
+        private bool IsElementEnd()
         {
-            if (XmlString[Position] == '<' && XmlString[Position + 1] == '/') 
+            if (XmlString[Position] == '<' && XmlString[Position + 1] == '/')
             {
                 return true;
             }
             return false;
         }
 
-        private void ElemEnd()
+        private void WriteElement()
         {
             if (ElementFlag)
             {
