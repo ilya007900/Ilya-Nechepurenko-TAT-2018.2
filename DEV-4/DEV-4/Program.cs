@@ -13,13 +13,12 @@ namespace DEV_4
                 string stringXml = fileReader.ReadXmlFile(path);
                 Console.WriteLine(stringXml);
                 Console.WriteLine('\n');
-                XmlParser xmlParser = new XmlParser(stringXml);
-                xmlParser.Parse();
-                xmlParser.Sort();
-                foreach (string str in xmlParser.XmlAsStrings)
-                {
-                    Console.WriteLine(str);
-                }
+                Xml xml = new Xml(stringXml);
+                xml.Output();
+                Console.WriteLine('\n');
+                xml.Sort();
+                xml.Output();
+                
             }
             catch(Exception ex)
             {

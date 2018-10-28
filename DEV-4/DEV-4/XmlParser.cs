@@ -6,16 +6,16 @@ namespace DEV_4
 {
     class XmlParser
     {
-        private int NTag { get; set; } = 0;
+        private int TagNumber { get; set; } = 0;
         private string XmlString { get; set; }
         private int Position { get; set; } = 0;
         private bool ElementFlag { get; set; } = false;
         private bool ValueFlag { get; set; } = false;
-        public List<string> XmlAsStrings { get; set; }
+        private List<string> XmlAsStrings { get; set; }
         private List<string> ChainOfTags { get; set; }
         private StringBuilder Tag { get; set; }
         private static string SpecSimb { get; set; } = "\n\r\t <>";
-        private static string SymbolsSkip { get; set; } = "\n\t\r ";
+        private static string SymbolsToSkip { get; set; } = "\n\t\r ";
 
         public XmlParser(string xmlString)
         {
@@ -25,7 +25,7 @@ namespace DEV_4
             Tag = new StringBuilder();
         }
 
-        public void Parse()
+        public List<string> Parse()
         {
             for (; Position < XmlString.Length; Position++)
             {
@@ -38,6 +38,7 @@ namespace DEV_4
                     ElemEnd();
                 }
             }
+            return XmlAsStrings;
         }
 
         private bool IsElemStart()
@@ -52,7 +53,7 @@ namespace DEV_4
         private void ElemStart()
         {
             ElementFlag = true;
-            NTag++;
+            TagNumber++;
             Position++;
 
             ReadTag();
@@ -88,8 +89,8 @@ namespace DEV_4
                 XmlAsStrings.Add(big.ToString());
                 ElementFlag = false;
             }
-            NTag--;
-            ChainOfTags.RemoveAt(NTag);
+            TagNumber--;
+            ChainOfTags.RemoveAt(TagNumber);
         }
 
         private bool IsValueStart()
@@ -112,7 +113,7 @@ namespace DEV_4
 
         private void SkipSymbols()
         {
-            while (SymbolsSkip.Contains(XmlString[Position + 1]))
+            while (SymbolsToSkip.Contains(XmlString[Position + 1]))
             {
                 Position++;
             }
@@ -125,11 +126,6 @@ namespace DEV_4
                 Tag.Append(XmlString[Position]);
                 Position++;
             }
-        }
-
-        public void Sort()
-        {
-            XmlAsStrings.Sort();
         }
     }
 }
