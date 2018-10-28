@@ -2,27 +2,35 @@
 
 namespace DEV_4
 {
-    class Program
+    class MyXmlHandler
     {
         static void Main(string[] args)
         {
             try
             {
-                string path = "file.xml";
+                if (args.Length < 1)
+                {
+                    throw new ArgumentException("Not enough parameters");
+                }
+                if (args.Length > 1)
+                {
+                    throw new ArgumentException("Too many parameters");
+                }
+                string path = args[0];
                 XmlFileReader fileReader = new XmlFileReader();
                 string stringXml = fileReader.ReadXmlFile(path);
-                Console.WriteLine(stringXml);
-                Console.WriteLine('\n');
                 Xml xml = new Xml(stringXml);
-                xml.Output();
-                Console.WriteLine('\n');
                 xml.Sort();
                 xml.Output();
-                
+
             }
-            catch(ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
                 Console.WriteLine("Incorrect Xml file");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
