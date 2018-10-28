@@ -6,13 +6,16 @@ namespace DEV_4
 {
     class XmlParser
     {
-        public int NTag { get; set; } = 0;
-        public string XmlString { get; set; }
-        public int Position { get; set; } = 0;
-        public bool Flag { get; set; } = false;
-        public List<string> Retres { get; set; }
-        public List<string> Result { get; set; }
-        public StringBuilder Tag { get; set; }
+        private int NTag { get; set; } = 0;
+        private string XmlString { get; set; }
+        private int Position { get; set; } = 0;
+        private bool ElementFlag { get; set; } = false;
+        private bool ValueFlag { get; set; } = false;
+        private List<string> Retres { get; set; }
+        private List<string> Result { get; set; }
+        private StringBuilder Tag { get; set; }
+        private static string SpecSimb { get; set; } = "\n\r\t <>";
+        private static string SymbolsSkip { get; set; } = "\n\t\r ";
 
         public XmlParser(string xmlString)
         {
@@ -30,12 +33,10 @@ namespace DEV_4
                 {
                     ElemStart();
                 }
-
                 if (IsElemEnd())
                 {
                     ElemEnd();
                 }
-                Tag.Clear();
             }
             return Retres;
         }
@@ -51,24 +52,20 @@ namespace DEV_4
 
         private void ElemStart()
         {
-            Flag = true;
+            ElementFlag = true;
             NTag++;
             Position++;
-            while (XmlString[Position] != '>')
-            {
-                Tag.Append(XmlString[Position]);
-                Position++;
-            }
-            if (!"\n\t\r <>".Contains(XmlString[Position + 1]))
-            {
-                Tag.Append("->");
-                while (!"\n\t\r <>".Contains(XmlString[Position + 1]))
-                {
-                    Position++;
-                    Tag.Append(XmlString[Position]);
-                }
-            }
-            Result.Add(Tag.ToString() + "->");
+
+            ReadTag();
+            
+            Tag.Append("->");
+
+            SkipSymbols();
+
+            ReadValue();
+            
+            Result.Add(Tag.ToString());
+            Tag.Clear();
         }
 
         private bool IsElemEnd()
@@ -82,7 +79,7 @@ namespace DEV_4
 
         private void ElemEnd()
         {
-            if (Flag)
+            if (ElementFlag)
             {
                 StringBuilder big = new StringBuilder();
                 foreach (string s in Result)
@@ -90,10 +87,45 @@ namespace DEV_4
                     big.Append(s);
                 }
                 Retres.Add(big.ToString());
-                Flag = false;
+                ElementFlag = false;
             }
             NTag--;
             Result.RemoveAt(NTag);
+        }
+
+        private bool IsValueStart()
+        {
+            if (!SpecSimb.Contains(XmlString[Position + 1]))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void ReadValue()
+        {
+            while (!SpecSimb.Contains(XmlString[Position + 1]))
+            {
+                Tag.Append(XmlString[Position + 1]);
+                Position++;
+            }
+        }
+
+        private void SkipSymbols()
+        {
+            while (SymbolsSkip.Contains(XmlString[Position + 1]))
+            {
+                Position++;
+            }
+        }
+
+        private void ReadTag()
+        {
+            while (XmlString[Position] != '>')
+            {
+                Tag.Append(XmlString[Position]);
+                Position++;
+            }
         }
     }
 }
