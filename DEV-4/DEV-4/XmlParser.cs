@@ -11,7 +11,7 @@ namespace DEV_4
         private int Position { get; set; } = 0;
         private bool ElementFlag { get; set; } = false;
         private bool ValueFlag { get; set; } = false;
-        private List<string> XmlAsStrings { get; set; }
+        public List<string> XmlAsStrings { get; set; }
         private List<string> ChainOfTags { get; set; }
         private StringBuilder Tag { get; set; }
         private static string SpecSimb { get; set; } = "\n\r\t <>";
@@ -25,7 +25,7 @@ namespace DEV_4
             Tag = new StringBuilder();
         }
 
-        public List<string> Parse()
+        public void Parse()
         {
             for (; Position < XmlString.Length; Position++)
             {
@@ -38,7 +38,6 @@ namespace DEV_4
                     ElemEnd();
                 }
             }
-            return XmlAsStrings;
         }
 
         private bool IsElemStart()
@@ -126,6 +125,11 @@ namespace DEV_4
                 Tag.Append(XmlString[Position]);
                 Position++;
             }
+        }
+
+        public void Sort()
+        {
+            XmlAsStrings.Sort();
         }
     }
 }

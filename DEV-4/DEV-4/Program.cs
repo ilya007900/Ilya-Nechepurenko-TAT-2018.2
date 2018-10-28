@@ -14,7 +14,9 @@ namespace DEV_4
                 Console.WriteLine(stringXml);
                 Console.WriteLine('\n');
                 XmlParser xmlParser = new XmlParser(stringXml);
-                foreach (string str in xmlParser.Parse())
+                xmlParser.Parse();
+                xmlParser.Sort();
+                foreach (string str in xmlParser.XmlAsStrings)
                 {
                     Console.WriteLine(str);
                 }
