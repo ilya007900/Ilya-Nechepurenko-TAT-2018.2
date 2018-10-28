@@ -6,62 +6,94 @@ namespace DEV_4
 {
     class XmlParser
     {
-        public int NTag { get; set; }
+        public int NTag { get; set; } = 0;
+        public string XmlString { get; set; }
+        public int Position { get; set; } = 0;
+        public bool Flag { get; set; } = false;
+        public List<string> Retres { get; set; }
+        public List<string> Result { get; set; }
+        public StringBuilder Tag { get; set; }
 
-        public List<string> Parse(string xmlString)
+        public XmlParser(string xmlString)
         {
-            List<string> retres = new List<string>();
-            List<string> result = new List<string>();
-            StringBuilder tag = new StringBuilder();
-            bool flag = false;
-            for (int i = 0; i < xmlString.Length; i++)
+            XmlString = xmlString;
+            Retres = new List<string>();
+            Result = new List<string>();
+            Tag = new StringBuilder();
+        }
+
+        public List<string> Parse()
+        {
+            for (; Position < XmlString.Length; Position++)
             {
-                if (xmlString[i] == '<' && xmlString[i + 1] != '/')
+                if (IsElemStart())
                 {
-                    flag = true;
-                    NTag++;
-                    i++;
-                    while (xmlString[i] != '>')
-                    {
-                        tag.Append(xmlString[i]);
-                        i++;
-                    }
-                    if (!"\n\t\r <>".Contains(xmlString[i + 1]))
-                    {
-                        tag.Append("->");
-                        while (!"\n\t\r <>".Contains(xmlString[i + 1]))
-                        {
-                            i++;
-                            tag.Append(xmlString[i]);
-                        }
-                    }
-                    result.Add(tag.ToString() + "->");
+                    ElemStart();
                 }
 
-                if (xmlString[i] == '<' && xmlString[i + 1] == '/')
+                if (IsElemEnd())
                 {
-                    if (flag)
-                    {
-                        StringBuilder big = new StringBuilder();
-                        foreach (string s in result)
-                        {
-                            big.Append(s);
-                        }
-                        retres.Add(big.ToString());
-                        NTag--;
-                        result.RemoveAt(NTag);
-                        flag = false;
-                    }
-                    else
-                    {
-                        NTag--;
-                        result.RemoveAt(NTag);
-                    }
+                    ElemEnd();
                 }
-                tag.Clear();
+                Tag.Clear();
             }
+            return Retres;
+        }
 
-            return retres;
+        private bool IsElemStart()
+        {
+            if (XmlString[Position] == '<' && XmlString[Position + 1] != '/')
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void ElemStart()
+        {
+            Flag = true;
+            NTag++;
+            Position++;
+            while (XmlString[Position] != '>')
+            {
+                Tag.Append(XmlString[Position]);
+                Position++;
+            }
+            if (!"\n\t\r <>".Contains(XmlString[Position + 1]))
+            {
+                Tag.Append("->");
+                while (!"\n\t\r <>".Contains(XmlString[Position + 1]))
+                {
+                    Position++;
+                    Tag.Append(XmlString[Position]);
+                }
+            }
+            Result.Add(Tag.ToString() + "->");
+        }
+
+        private bool IsElemEnd()
+        {
+            if (XmlString[Position] == '<' && XmlString[Position + 1] == '/') 
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void ElemEnd()
+        {
+            if (Flag)
+            {
+                StringBuilder big = new StringBuilder();
+                foreach (string s in Result)
+                {
+                    big.Append(s);
+                }
+                Retres.Add(big.ToString());
+                Flag = false;
+            }
+            NTag--;
+            Result.RemoveAt(NTag);
         }
     }
 }
