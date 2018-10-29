@@ -16,7 +16,7 @@ namespace DEV_4
         private List<string> XmlAsStrings { get; set; }
         private List<string> ListOfTags { get; set; }
         private StringBuilder Tag { get; set; }
-        private static string SpecialSimbols { get; set; } = "\n\r\t <>";
+        private static string SpecialSymbols { get; set; } = "<>";
         private static string SymbolsToSkip { get; set; } = "\n\t\r ";
 
         public XmlParser(string xmlString)
@@ -124,7 +124,8 @@ namespace DEV_4
         /// <returns>true if value is begins</returns>
         private bool IsValueStart()
         {
-            if (!SpecialSimbols.Contains(XmlString[Position + 1]))
+            if ((!SpecialSymbols.Contains(XmlString[Position + 1])) &&
+                (!SymbolsToSkip.Contains(XmlString[Position + 1])))
             {
                 return true;
             }
@@ -136,7 +137,8 @@ namespace DEV_4
         /// </summary>
         private void ReadValue()
         {
-            while (!SpecialSimbols.Contains(XmlString[Position + 1]))
+            while ((!SpecialSymbols.Contains(XmlString[Position + 1])) &&
+                    (!SymbolsToSkip.Contains(XmlString[Position + 1])))
             {
                 Tag.Append(XmlString[Position + 1]);
                 Position++;
