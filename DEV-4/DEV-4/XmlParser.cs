@@ -25,9 +25,9 @@ namespace DEV_4
                 if (IsElementBeginning())
                 {
                     Xml.Root = GetElement();
+                    break;
                 }
                 Position++;
-                break;
             }
             return Xml;
         }
