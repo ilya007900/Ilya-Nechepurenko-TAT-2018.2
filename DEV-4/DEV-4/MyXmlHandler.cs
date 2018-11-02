@@ -23,13 +23,13 @@ namespace DEV_4
                 {
                     throw new ArgumentException("Too many parameters");
                 }
-                string path = args[0];
-                XmlFileReader fileReader = new XmlFileReader();
-                string stringXml = fileReader.ReadXmlFile(path);
-                Xml xml = new Xml(stringXml);
-                xml.Sort();
-                xml.Output();
 
+                string path = args[0];
+                XmlParser xmlParser = new XmlParser(path);
+                Xml xml = xmlParser.Xml;
+                xml.Sort();
+                XmlOutputer xmlOutputer = new XmlOutputer(xml);
+                xmlOutputer.OutputAsChainOfElements();
             }
             catch (ArgumentOutOfRangeException)
             {

@@ -1,62 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace DEV_4
 {
     /// <summary>
-    /// Parses Xml string
+    /// This class parses xml string to xml
     /// </summary>
     class XmlParser
     {
-        private int TagNumber { get; set; } = 0;
+        private int Level { get; set; }
+        private int Position { get; set; }
         private string XmlString { get; set; }
-        private int Position { get; set; } = 0;
-        private bool ElementFlag { get; set; } = false;
-        private List<string> XmlAsStrings { get; set; }
-        private List<string> ListOfTags { get; set; }
-        private StringBuilder Tag { get; set; }
-        private static string SpecialSymbols { get; set; } = "<>";
-        private static string SymbolsToSkip { get; set; } = "\n\t\r ";
+        private static string SymbolsToSkip { get; } = "\n\r\t";
 
-        public XmlParser(string xmlString)
+        /// <summary>
+        /// Strats parsing from the root element
+        /// </summary>
+        /// <returns>xml</returns>
+        private Xml Parse()
         {
-            XmlString = xmlString;
-            XmlAsStrings = new List<string>();
-            ListOfTags = new List<string>();
-            Tag = new StringBuilder();
+            Xml = new Xml();
+            while (Position < XmlString.Length)
+            {
+                if (IsElementBeginning())
+                {
+                    Xml.Root = GetElement();
+                }
+                Position++;
+                break;
+            }
+            return Xml;
         }
 
         /// <summary>
-        /// Parse string xml to strings 
+        /// Parses string into element
         /// </summary>
-        /// <returns>xml in strings</returns>
-        /// <exception cref="Exception">thrown if xml file is incorrect</exception>
-        public List<string> Parse()
+        /// <returns>Element</returns>
+        private XmlElement GetElement()
         {
-            for (; Position < XmlString.Length; Position++)
+            XmlElement element = new XmlElement();
+
+            element.Tag = GetTag();
+
+            if (XmlString[Position] == ' ')
             {
-                if (IsElementStart())
-                {
-                    ReadElement();
-                }
-                if (IsElementEnd())
-                {
-                    WriteElement();
-                }
+                element.Attributes = GetAttributes();
             }
-            if (TagNumber != 0)
+            else
             {
-                throw new Exception("Incorrect xml file");
+                element.Attributes = null;
             }
-            return XmlAsStrings;
+
+            if (HaveChildrens())
+            {
+                element.Childrens = GetChildrens();
+            }
+            else
+            {
+                element.Value = GetElementValue();
+            }
+            return element;
         }
 
         /// <summary>
-        /// Checks element is begins
+        /// Checks the beginning of the element
         /// </summary>
-        /// <returns>true if element is begins</returns>
-        private bool IsElementStart()
+        /// <returns>true if element is beginning</returns>
+        private bool IsElementBeginning()
         {
             if (XmlString[Position] == '<' && XmlString[Position + 1] != '/')
             {
@@ -66,31 +76,10 @@ namespace DEV_4
         }
 
         /// <summary>
-        /// Reads element in string
-        /// </summary>
-        private void ReadElement()
-        {
-            ElementFlag = true;
-            TagNumber++;
-            Position++;
-
-            ReadTag();
-
-            Tag.Append("->");
-
-            SkipSymbols();
-
-            ReadValue();
-
-            ListOfTags.Add(Tag.ToString());
-            Tag.Clear();
-        }
-
-        /// <summary>
-        /// Checks element is ending
+        /// Checks the ending of the element
         /// </summary>
         /// <returns>true if element is ending</returns>
-        private bool IsElementEnd()
+        private bool IsElementEnding()
         {
             if (XmlString[Position] == '<' && XmlString[Position + 1] == '/')
             {
@@ -100,72 +89,173 @@ namespace DEV_4
         }
 
         /// <summary>
-        /// Writes element in strings
+        /// Parses string into tag
         /// </summary>
-        private void WriteElement()
+        /// <returns>Tag</returns>
+        private XmlTag GetTag()
         {
-            if (ElementFlag)
+            XmlTag tag = new XmlTag();
+
+            StringBuilder tagName = new StringBuilder();
+            Position++;
+            while (!"> ".Contains(XmlString[Position]))
             {
-                StringBuilder chainOfTagsAsString = new StringBuilder();
-                foreach (string s in ListOfTags)
+                if (!SymbolsToSkip.Contains(XmlString[Position]))
                 {
-                    chainOfTagsAsString.Append(s);
+                    tagName.Append(XmlString[Position]);
                 }
-                XmlAsStrings.Add(chainOfTagsAsString.ToString());
-                ElementFlag = false;
+                Position++;
             }
-            TagNumber--;
-            ListOfTags.RemoveAt(TagNumber);
+            tag.Name = tagName.ToString();
+            return tag;
         }
 
         /// <summary>
-        /// Checks is value is begins
+        /// Parses string into attributes
         /// </summary>
-        /// <returns>true if value is begins</returns>
-        private bool IsValueStart()
+        /// <returns>List of attributes</returns>
+        private List<XmlAttribute> GetAttributes()
         {
-            if ((!SpecialSymbols.Contains(XmlString[Position + 1])) &&
-                (!SymbolsToSkip.Contains(XmlString[Position + 1])))
+            List<XmlAttribute> attributes = new List<XmlAttribute>();
+
+            while (XmlString[Position] != '>')
             {
-                return true;
+                attributes.Add(new XmlAttribute
+                {
+                    Name = GetAttributeName(),
+                    Value = GetAttributeValue()
+                });
+                Position++;
+            }
+
+            return attributes;
+        }
+
+        /// <summary>
+        /// Parses string into attribute name
+        /// </summary>
+        /// <returns>attribute name</returns>
+        private string GetAttributeName()
+        {
+            StringBuilder name = new StringBuilder();
+            Position++;
+            while (XmlString[Position] != '=')
+            {
+                name.Append(XmlString[Position]);
+                Position++;
+            }
+
+            return name.ToString();
+        }
+
+        /// <summary>
+        /// Parses string into attribute value
+        /// </summary>
+        /// <returns>attribute value</returns>
+        private string GetAttributeValue()
+        {
+            while (XmlString[Position] != '"')
+            {
+                Position++;
+            }
+            Position++;
+            StringBuilder value = new StringBuilder();
+            while (XmlString[Position] != '"')
+            {
+                value.Append(XmlString[Position]);
+                Position++;
+            }
+            return value.ToString();
+        }
+
+        /// <summary>
+        /// Parses string into childrens
+        /// </summary>
+        /// <returns>list of childrens</returns>
+        private List<XmlElement> GetChildrens()
+        {
+            List<XmlElement> childrens = new List<XmlElement>();
+            int tempLevel = Level;
+            do
+            {
+                if (IsElementBeginning())
+                {
+                    Level++;
+                    childrens.Add(GetElement());
+                }
+                if (IsElementEnding())
+                {
+                    Level--;
+                }
+                Position++;
+            }
+            while (tempLevel == Level);
+            return childrens;
+        }
+
+        /// <summary>
+        /// Parses string into element value
+        /// </summary>
+        /// <returns>element value</returns>
+        private string GetElementValue()
+        {
+            StringBuilder elemValue = new StringBuilder();
+            while (XmlString[Position] != '<')
+            {
+                if (!SymbolsToSkip.Contains(XmlString[Position]))
+                {
+                    elemValue.Append(XmlString[Position]);
+                }
+                Position++;
+            }
+            return elemValue.ToString();
+        }
+
+        /// <summary>
+        /// Checks childrens of element
+        /// </summary>
+        /// <returns>true if element have childrens</returns>
+        private bool HaveChildrens()
+        {
+            while (true)
+            {
+                if (XmlString[Position] == '<')
+                {
+                    return true;
+                }
+                else if (char.IsLetterOrDigit(XmlString[Position]))
+                {
+                    return false;
+                }
+                Position++;
+            }
+        }
+
+        /// <summary>
+        /// Checks attributes of element
+        /// </summary>
+        /// <returns>true if element have attributes</returns>
+        private bool HaveAttributes()
+        {
+            while (XmlString[Position] != '>')
+            {
+                if (XmlString[Position] == ' ')
+                {
+                    return true;
+                }
+                Position++;
             }
             return false;
         }
 
-        /// <summary>
-        /// Reads value in string
-        /// </summary>
-        private void ReadValue()
+        public Xml Xml { get; private set; }
+
+        public XmlParser(string path)
         {
-            while ((!SpecialSymbols.Contains(XmlString[Position + 1])) &&
-                    (!SymbolsToSkip.Contains(XmlString[Position + 1])))
-            {
-                Tag.Append(XmlString[Position + 1]);
-                Position++;
-            }
+            XmlFileReader xmlFileReader = new XmlFileReader();
+            XmlString = xmlFileReader.ReadXmlFile(path);
+            Xml = Parse();
         }
 
-        /// <summary>
-        /// Skips symbols to skip
-        /// </summary>
-        private void SkipSymbols()
-        {
-            while (SymbolsToSkip.Contains(XmlString[Position + 1]))
-            {
-                Position++;
-            }
-        }
-
-        /// <summary>
-        /// Reads tag in string
-        /// </summary>
-        private void ReadTag()
-        {
-            while (XmlString[Position] != '>')
-            {                
-                Tag.Append(XmlString[Position]);
-                Position++;
-            }
-        }
     }
 }
