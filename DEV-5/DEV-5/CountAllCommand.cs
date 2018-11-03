@@ -1,13 +1,18 @@
 ﻿
 namespace DEV_5
 {
-    class CountAllCommand : Command
+    class CountAllCommand : ICommand
     {
         private Collection Reciver { get; set; }
 
-        public override void Execute()
+        public CountAllCommand(Collection reciver)
         {
+            Reciver = reciver;
+        }
 
+        public void Execute()
+        {
+            Reciver.CountAll();
         }
     }
 }

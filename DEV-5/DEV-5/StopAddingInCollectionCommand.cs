@@ -1,11 +1,11 @@
 ﻿
 namespace DEV_5
 {
-    class StopAddingInCollectionCommand : Command
+    class StopAddingInCollectionCommand : ICommand
     {
         private Collection Reciver { get; set; }
 
-        public override void Execute()
+        public void Execute()
         {
 
         }

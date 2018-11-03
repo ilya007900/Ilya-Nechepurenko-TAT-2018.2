@@ -1,13 +1,18 @@
 ﻿
 namespace DEV_5
 {
-    class AveragePriceTypeCommand : Command
+    class AveragePriceTypeCommand : ICommand
     {
         private Collection Reciver { get; set; }
 
-        public override void Execute()
+        public AveragePriceTypeCommand(Collection reciver)
         {
+            Reciver = reciver;
+        }
 
+        public void Execute()
+        {
+            Reciver.AvaragePrice();
         }
     }
 }

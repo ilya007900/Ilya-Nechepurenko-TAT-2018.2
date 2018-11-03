@@ -1,12 +1,18 @@
 ﻿
 namespace DEV_5
 {
-    class AddInCollectionCommand : Command
+    class AddInCollectionCommand : ICommand
     {
         private Collection Reciver { get; set; }
 
-        public override void Execute()
+        public AddInCollectionCommand(Collection reciver)
         {
+            Reciver = reciver;
+        }
+
+        public void Execute()
+        {
+            Reciver.AddInCollection(CarInputer.Get());
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿
 namespace DEV_5
 {
-    class ExitCommand : Command
+    class ExitCommand : ICommand
     {
-        public override void Execute()
+        public void Execute()
         {
-
+            
         }
     }
 }
