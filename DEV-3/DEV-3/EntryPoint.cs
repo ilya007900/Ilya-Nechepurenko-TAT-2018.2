@@ -6,7 +6,7 @@ namespace DEV_3
     /// This programm gets two parameters from the command line 
     /// and converts first parameter to new base from second parameter
     /// </summary>
-    class DEV3
+    class EntryPoint
     {
         /// <summary>
         /// Entry point
