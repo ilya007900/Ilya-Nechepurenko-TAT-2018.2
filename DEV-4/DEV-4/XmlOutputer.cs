@@ -8,7 +8,7 @@ namespace DEV_4
     /// </summary>
     class XmlOutputer
     {
-        private List<XmlElement> ChainOfElements { get; set; } = new List<XmlElement>();
+        private List<XmlElement> ChainOfElements { get; set; }
 
         private Xml Xml { get; set; }
 
@@ -113,6 +113,7 @@ namespace DEV_4
         /// </summary>
         public void OutputAsChainOfElements()
         {
+            ChainOfElements = new List<XmlElement>();
             OutputChainOfElements(Xml.Root);
         }
     }
