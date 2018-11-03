@@ -11,18 +11,14 @@ namespace DEV_3
         /// <summary>
         /// Entry point
         /// </summary>
-        /// <param name="args">arguments of command line</param>
+        /// <param name="args">first parameter is number, second parameter is new base</param>
         static void Main(string[] args)
         {
             try
             {
-                if (args.Length < 2)
+                if (args.Length != 2)
                 {
-                    throw new Exception("Not enough parameters");
-                }
-                if (args.Length > 2)
-                {
-                    throw new Exception("Too many parameters");
+                    throw new Exception("Incorrect parameters");
                 }
                 if (!(int.TryParse(args[0], out int value)))
                 {
@@ -34,10 +30,6 @@ namespace DEV_3
                 }
                 IntToNewBaseConverter converter= new IntToNewBaseConverter(value);
                 Console.WriteLine(converter.ConvertToNewSystem(newBase));
-            }
-            catch (ArgumentException argEx)
-            {
-                Console.WriteLine(argEx.Message);
             }
             catch (Exception ex) 
             {

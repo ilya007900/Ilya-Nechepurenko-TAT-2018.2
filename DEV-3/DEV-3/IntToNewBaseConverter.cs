@@ -9,8 +9,8 @@ namespace DEV_3
     class IntToNewBaseConverter
     {
         private static string SymbolsOfNewBase { get; } = "0123456789ABCDEFGHIJ";
-        public static int MinBase { get; } = 2;
-        public static int MaxBase { get; } = 20;
+        public const int MinBase = 2;
+        public const int MaxBase = 20;
         public int Value { get; set; }
 
         /// <summary>
