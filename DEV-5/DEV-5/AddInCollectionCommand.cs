@@ -1,6 +1,9 @@
 ﻿
 namespace DEV_5
 {
+    /// <summary>
+    /// Command that adds car in collection
+    /// </summary>
     class AddInCollectionCommand : ICommand
     {
         private Collection Reciver { get; set; }
@@ -12,6 +15,9 @@ namespace DEV_5
             Car = car;
         }
 
+        /// <summary>
+        /// Execute command that adds car in collection
+        /// </summary>
         public void Execute()
         {
             Reciver.AddInCollection(Car);

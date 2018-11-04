@@ -2,6 +2,9 @@
 
 namespace DEV_5
 {
+    /// <summary>
+    /// Keeps car
+    /// </summary>
     class Car
     {
         public string Brand { get; set; }

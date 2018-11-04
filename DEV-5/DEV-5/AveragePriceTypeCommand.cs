@@ -2,6 +2,9 @@
 
 namespace DEV_5
 {
+    /// <summary>
+    /// Command that output average price of brand to console
+    /// </summary>
     class AveragePriceTypeCommand : ICommand
     {
         private Collection Reciver { get; set; }
@@ -14,6 +17,9 @@ namespace DEV_5
             Brand = brand;
         }
 
+        /// <summary>
+        /// Execute command that output average price of brand to console
+        /// </summary>
         public void Execute()
         {
             Console.WriteLine(Reciver.AveragePiceType(Brand));

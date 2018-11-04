@@ -3,8 +3,16 @@ using System.Text;
 
 namespace DEV_5
 {
+    /// <summary>
+    /// Class that interacts with client
+    /// </summary>
     class Client
     {
+        /// <summary>
+        /// Runs interact with client
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <param name="manipulator"></param>
         public void Run(Collection collection, CollectionManipulator manipulator)
         {
             CommandGetter commandGetter = new CommandGetter();

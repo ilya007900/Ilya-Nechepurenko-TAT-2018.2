@@ -2,9 +2,15 @@
 
 namespace DEV_5
 {
+    /// <summary>
+    /// Provides methods to manipulate with collection
+    /// </summary>
     class EntryPoint
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Initializes collection, collection manipulator and client classes.
+        /// </summary>
+        static void Main()
         {
             try
             {
