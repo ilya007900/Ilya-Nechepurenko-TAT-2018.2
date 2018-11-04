@@ -11,8 +11,8 @@ namespace DEV_5
         /// <summary>
         /// Runs interact with client
         /// </summary>
-        /// <param name="collection"></param>
-        /// <param name="manipulator"></param>
+        /// <param name="collection">collection for manipulation</param>
+        /// <param name="manipulator">methods to manipulate</param>
         public void Run(Collection collection, CollectionManipulator manipulator)
         {
             CommandGetter commandGetter = new CommandGetter();
@@ -22,18 +22,18 @@ namespace DEV_5
             {
                 manipulator.SetCommand(new AddInCollectionCommand(collection, carInputer.GetCarFromConsole()));
                 manipulator.ExecuteCommand();
-                Console.WriteLine("Stop? y/n");
-            } while (commandGetter.GetCommand() != "y");
+                Console.WriteLine("Stop input? yes/no");
+            } while (commandGetter.GetCommand() != "yes");
 
             while (true)
             {
                 string command = commandGetter.GetCommand();
 
-                if (command == "avg price")
+                if (command == "average price")
                 {
                     manipulator.SetCommand(new AveragePriceCommand(collection));
                 }
-                else if (command.StartsWith("avg price ") && command.Length > 10)
+                else if (command.StartsWith("average price ") && command.Length > 10)
                 {
                     StringBuilder brand = new StringBuilder(command, 10, command.Length - 10, command.Length);
                     manipulator.SetCommand(new AveragePriceTypeCommand(collection, brand.ToString()));

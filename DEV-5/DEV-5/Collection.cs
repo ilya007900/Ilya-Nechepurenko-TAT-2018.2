@@ -13,11 +13,7 @@ namespace DEV_5
 
         public Collection()
         {
-            Cars = new List<Car>
-            {
-                new Car("bmw","m5",1,100000),
-                new Car("bmw","m6",1,90000)
-            };
+            Cars = new List<Car>();
         }
 
         /// <summary>
