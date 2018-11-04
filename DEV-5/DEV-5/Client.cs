@@ -3,6 +3,7 @@ using System.Text;
 
 namespace DEV_5
 {
+    enum Indexes { BrandStartIndex = 14 }
     /// <summary>
     /// Class that interacts with client
     /// </summary>
@@ -33,9 +34,10 @@ namespace DEV_5
                 {
                     manipulator.SetCommand(new AveragePriceCommand(collection));
                 }
-                else if (command.StartsWith("average price ") && command.Length > 10)
+                else if (command.StartsWith("average price ") && command.Length > (int)Indexes.BrandStartIndex)
                 {
-                    StringBuilder brand = new StringBuilder(command, 10, command.Length - 10, command.Length);
+                    StringBuilder brand = new StringBuilder(command, (int)Indexes.BrandStartIndex,
+                        command.Length - (int)Indexes.BrandStartIndex, command.Length);
                     manipulator.SetCommand(new AveragePriceTypeCommand(collection, brand.ToString()));
                 }
                 else if (command == "count all")
@@ -52,6 +54,7 @@ namespace DEV_5
                 }
                 else
                 {
+                    Console.WriteLine("Incorrect command. Try again");
                     continue;
                 }
                 manipulator.ExecuteCommand();
