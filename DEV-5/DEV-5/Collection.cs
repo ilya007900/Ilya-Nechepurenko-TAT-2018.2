@@ -13,36 +13,49 @@ namespace DEV_5
             Cars = new List<Car>
             {
                 new Car("bmw","m5",1,100000),
-                new Car("bmw","m6",1,90000),
-                new Car("bmw","m4",1,50000),
-                new Car("bmw","x5",1,70000),
-                new Car("bmw","x6",1,80000)
+                new Car("bmw","m6",1,90000)
             };
         }
 
-        public void CountTypes()
+        public int CountTypes()
         {
-            Console.WriteLine(Cars.GroupBy(x => x.Brand).Count());
+            return Cars.GroupBy(x => x.Brand).Count();
         }
 
-        public void CountAll()
+        public int CountAll()
         {
-            Console.WriteLine(Cars.Sum(x => x.Count));
+            return Cars.Sum(x => x.Count);
         }
 
-        public void AvaragePrice()
+        public double AveragePrice()
         {
-            Console.WriteLine(Cars.Sum(x => x.Price) / Cars.Sum(x => x.Count));
+            return Cars.Average(x => x.Price);
         }
 
-        public void AvaragePiceType(string brand)
+        public double AveragePiceType(string brand)
         {
-            Console.WriteLine(Cars.Where(x => x.Brand == brand).Sum(x => x.Price) / Cars.Where(x => x.Brand == brand).Count());
+            return Cars.Where(x => x.Brand == brand).Average(x => x.Price);
         }
 
         public void AddInCollection(Car car)
         {
-            Cars.Add(car);
+            Car tempCar = Cars.Find(x => x.Brand == car.Brand && x.Model == car.Model);
+
+            if (tempCar!=null)
+            {
+                if (tempCar.Price == car.Price)
+                {
+                    tempCar.Count += car.Count;
+                }
+                else
+                {
+                    throw new Exception("Incorrect car input");
+                }
+            }
+            else
+            {
+                Cars.Add(car);
+            }
         }
     }
 }

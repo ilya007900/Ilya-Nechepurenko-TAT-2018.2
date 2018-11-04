@@ -1,46 +1,52 @@
 ﻿using System;
+using System.Text;
 
 namespace DEV_5
 {
-    delegate void MessageHandler(string message);
-
     class Client
     {
-        static void Main(string[] args)
+        public void Run(Collection collection, CollectionManipulator manipulator)
         {
-            try
-            {
-                Invoker invoker = new Invoker();
-                Collection collection = new Collection();
-                do
-                {
-                    Console.WriteLine("Input command");
-                    string command = Console.ReadLine();
-                    switch (command)
-                    {
-                        case "count all":
-                            invoker.SetCommand(new CountAllCommand(collection));
-                            invoker.CountAll();
-                            break;
-                        case "avg price":
-                            invoker.SetCommand(new AveragePriceCommand(collection));
-                            invoker.AvgPrice();
-                            break;
-                        case "exit":
-                            invoker.SetCommand(new ExitCommand());
-                            break;
-                    }
-                }
-                while (!(invoker.Command is ExitCommand));
+            CommandGetter commandGetter = new CommandGetter();
+            CarInputer carInputer = new CarInputer();
 
-                foreach (Car c in collection.Cars)
-                {
-                    Console.WriteLine($"{c.Brand} {c.Model}");
-                }
-            }
-            catch(Exception ex)
+            do
             {
-                Console.WriteLine(ex.Message);
+                manipulator.SetCommand(new AddInCollectionCommand(collection, carInputer.GetCarFromConsole()));
+                manipulator.ExecuteCommand();
+                Console.WriteLine("Stop? y/n");
+            } while (commandGetter.GetCommand() != "y");
+
+            while (true)
+            {
+                string command = commandGetter.GetCommand();
+
+                if (command == "avg price")
+                {
+                    manipulator.SetCommand(new AveragePriceCommand(collection));
+                }
+                else if (command.StartsWith("avg price ") && command.Length > 10)
+                {
+                    StringBuilder brand = new StringBuilder(command, 10, command.Length - 10, command.Length);
+                    manipulator.SetCommand(new AveragePriceTypeCommand(collection, brand.ToString()));
+                }
+                else if (command == "count all")
+                {
+                    manipulator.SetCommand(new CountAllCommand(collection));
+                }
+                else if (command == "count types")
+                {
+                    manipulator.SetCommand(new CountTypesCommand(collection));
+                }
+                else if (command == "exit")
+                {
+                    return;
+                }
+                else
+                {
+                    continue;
+                }
+                manipulator.ExecuteCommand();
             }
         }
     }

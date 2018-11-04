@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace DEV_5
 {
     class AveragePriceCommand : ICommand
@@ -12,7 +13,7 @@ namespace DEV_5
 
         public void Execute()
         {
-            Reciver.AvaragePrice();
+            Console.WriteLine(Reciver.AveragePrice());
         }
     }
 }

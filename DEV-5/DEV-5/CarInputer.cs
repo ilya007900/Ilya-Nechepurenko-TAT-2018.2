@@ -4,21 +4,34 @@ namespace DEV_5
 {
     class CarInputer
     {
-        public static Car Get()
+        public Car GetCarFromConsole()
+        {
+            return new Car(GetBrand(), GetModel(), GetCount(), GetPrice());
+        }
+
+        private string GetBrand()
         {
             Console.WriteLine("Input brand");
-            string brand = Console.ReadLine();
-
-            Console.WriteLine("Input model");
-            string model = Console.ReadLine();
-
-            Console.WriteLine("Input count");
-            string count = Console.ReadLine();
-
-            Console.WriteLine("Input price");
-            string price = Console.ReadLine();
-
-            return new Car(brand, model, count, price);
+            return Console.ReadLine();
         }
+
+        private string GetModel()
+        {
+            Console.WriteLine("Input model");
+            return Console.ReadLine();
+        }
+
+        private string GetCount()
+        {
+            Console.WriteLine("Input count");
+            return Console.ReadLine();
+        }
+
+        private string GetPrice()
+        {
+            Console.WriteLine("Input price");
+            return Console.ReadLine();
+        }
+
     }
 }

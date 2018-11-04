@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace DEV_5
 {
     class CountAllCommand : ICommand
@@ -12,7 +13,7 @@ namespace DEV_5
 
         public void Execute()
         {
-            Reciver.CountAll();
+            Console.WriteLine(Reciver.CountAll()); 
         }
     }
 }
