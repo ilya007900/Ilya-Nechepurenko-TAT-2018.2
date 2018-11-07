@@ -6,7 +6,6 @@ namespace DEV_6.Json
 {
     class JsonParser
     {
-        private int Level { get; set; }
         private int Position { get; set; }
         private string JsonString { get; set; }
         private static string SymbolsToIgnore { get; } = "\n\r\t";
@@ -47,14 +46,13 @@ namespace DEV_6.Json
 
         private JsonElement GetElement()
         {
-            JsonElement element = new JsonElement();
-
-            element.Name = GetElementName();
-
+            JsonElement element = new JsonElement
+            {
+                Name = GetElementName()
+            };
             if (IsArray())
             {
-                element.Childrens = GetChildrens();
-                element.Value = null;
+                return null;
             }
             else if (HaveChildrens())
             {
@@ -120,30 +118,95 @@ namespace DEV_6.Json
             }
         }
 
-        public List<JsonElement> GetArray()
-        {
-            return null;
-        } 
-
         private List<JsonElement> GetChildrens()
         {
-            List<JsonElement> childrens = new List<JsonElement>();
-
-            childrens.Add(GetElement());
-
-            while (!IsElementEnded())
             {
-                if (JsonString[Position] == ',')
+                List<JsonElement> childrens = new List<JsonElement>();
+
+                if (CheckArray())
+                {
+                    childrens.AddRange(GetArray());
+                }
+                else
                 {
                     childrens.Add(GetElement());
+                }
+
+                while (!IsElementEnded())
+                {
+                    if (JsonString[Position] == ',')
+                    {
+                        if (CheckArray())
+                        {
+                            childrens.AddRange(GetArray());
+                        }
+                        else
+                        {
+                            childrens.Add(GetElement());
+                        }
+                    }
+                    else
+                    {
+                        Position++;
+                    }
+                }
+                Position++;
+                return childrens;
+            }
+        }
+
+        private bool CheckArray()
+        {
+            int tempPosiion = Position;
+            JsonElement tempElement = GetElement();
+            if(tempElement == null)
+            {
+                Position = tempPosiion;
+                return true;
+            }
+            Position = tempPosiion;
+            return false;
+        }
+
+        private List<JsonElement> GetArray()
+        {
+            List<JsonElement> values = new List<JsonElement>();
+            string name = GetElementName();
+            while (JsonString[Position] != ']')
+            {
+                if (IsElementStarted())
+                {
+                    values.Add(new JsonElement
+                    {
+                        Childrens = GetChildrens(),
+                        Name = name,
+                        Value = null
+                    });
+                }
+                else if (IsStringStartedOrEnded())
+                {
+                    values.Add(new JsonElement
+                    {
+                        Childrens = null,
+                        Name = name,
+                        Value = GetStringValue()
+                    });
+                }
+                else if (char.IsLetterOrDigit(JsonString[Position]))
+                {
+                    values.Add(new JsonElement
+                    {
+                        Childrens = null,
+                        Name = name,
+                        Value = GetValue()
+                    });
                 }
                 else
                 {
                     Position++;
                 }
             }
-            Position++;
-            return childrens;
+            return values;
         }
 
         private string GetValue()
@@ -156,7 +219,7 @@ namespace DEV_6.Json
             else
             {
                 StringBuilder value = new StringBuilder();
-                while (!IsElementEnded() && JsonString[Position] != ',')
+                while (!IsElementEnded() && JsonString[Position] != ',' && JsonString[Position] != ']')
                 {
                     if (!SymbolsToIgnore.Contains(JsonString[Position]) && JsonString[Position] != ' ') 
                     {
