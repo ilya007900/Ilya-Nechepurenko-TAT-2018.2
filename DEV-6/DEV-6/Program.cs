@@ -1,4 +1,5 @@
 ﻿using System;
+using DEV_6.Json;
 
 namespace DEV_6
 {
@@ -6,9 +7,22 @@ namespace DEV_6
     {
         static void Main(string[] args)
         {
-            if (args.Length != 2)
+            try
             {
-                throw new ArgumentException("Incorrect parameters");
+                //if (args.Length != 2)
+                //{
+                //    throw new ArgumentException("Incorrect parameters");
+                //}
+                string path = "jFile.json";
+                JsonParser jsonParser = new JsonParser(path);
+                Json.Json json = jsonParser.Json;
+                JsonOutputer jsonOutputer = new JsonOutputer(json);
+                jsonOutputer.Output();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
