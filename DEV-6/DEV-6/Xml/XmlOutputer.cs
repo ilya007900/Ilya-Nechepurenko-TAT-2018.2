@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DEV_6
+namespace DEV_6.Xml
 {
     /// <summary>
     /// This class provides methods for output xml to console

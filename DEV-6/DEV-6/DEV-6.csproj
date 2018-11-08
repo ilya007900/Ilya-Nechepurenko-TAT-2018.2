@@ -6,8 +6,4 @@
     <RootNamespace>DEV_6</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Xml\" />
-  </ItemGroup>
-
 </Project>

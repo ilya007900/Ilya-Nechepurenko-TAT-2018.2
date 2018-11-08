@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using DEV_6.Json;
+using DEV_6.Xml;
 
 namespace DEV_6.Converters
 {
     class JsonToXmlConverter
     {
         private Json.Json Json { get; set; }
-        public Xml Xml { get; private set; }
+        public Xml.Xml Xml { get; private set; }
 
         public JsonToXmlConverter(Json.Json json)
         {
@@ -16,9 +15,9 @@ namespace DEV_6.Converters
             Xml = Convert();
         }
 
-        private Xml Convert()
+        private Xml.Xml Convert()
         {
-            Xml xml = new Xml
+            Xml.Xml xml = new Xml.Xml
             {
                 Root = JsonElementToXmlElement(Json.Root)
             };

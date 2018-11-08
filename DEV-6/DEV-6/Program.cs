@@ -1,6 +1,7 @@
 ﻿using System;
 using DEV_6.Json;
 using DEV_6.Converters;
+using DEV_6.Xml;
 
 namespace DEV_6
 {
@@ -23,18 +24,20 @@ namespace DEV_6
                     JsonParser jsonParser = new JsonParser(fileToConvert);
                     Json.Json json = jsonParser.Json;
                     JsonToXmlConverter jsonToXmlConverter = new JsonToXmlConverter(json);
-                    Xml xml = jsonToXmlConverter.Xml;
+                    Xml.Xml xml = jsonToXmlConverter.Xml;
                     XmlOutputer xmlOutputer = new XmlOutputer(xml);
                     xmlOutputer.OutputAsXml();
                 }
                 else if (fileToConvert.Contains(".xml"))
                 {
                     XmlParser xmlParser = new XmlParser(fileToConvert);
-                    Xml xml = xmlParser.Xml;
+                    Xml.Xml xml = xmlParser.Xml;
                     XmlToJsonConverter xmlToJsonConverter = new XmlToJsonConverter(xml);
                     Json.Json json = xmlToJsonConverter.Json;
                     JsonOutputer jsonOutputer = new JsonOutputer(json);
                     jsonOutputer.Output();
+                    JsonToFileWriter jsonToFileWriter = new JsonToFileWriter(json, resultFile);
+                    jsonToFileWriter.WriteToFile();
                 }
                 else
                 {

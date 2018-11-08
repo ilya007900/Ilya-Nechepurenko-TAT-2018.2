@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using DEV_6.Json;
+using DEV_6.Xml;
 
 namespace DEV_6.Converters
 {
     class XmlToJsonConverter
     {
         public Json.Json Json { get; private set; }
-        private Xml Xml { get; set; }
+        private Xml.Xml Xml { get; set; }
 
-        public XmlToJsonConverter(Xml xml)
+        public XmlToJsonConverter(Xml.Xml xml)
         {
             Xml = xml;
             Json = Convert();

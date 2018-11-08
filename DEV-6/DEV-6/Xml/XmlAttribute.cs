@@ -1,5 +1,5 @@
 ﻿
-namespace DEV_6
+namespace DEV_6.Xml
 {
     /// <summary>
     /// This class keeps xml attribute

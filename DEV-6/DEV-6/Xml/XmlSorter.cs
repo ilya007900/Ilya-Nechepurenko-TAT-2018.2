@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace DEV_6
+namespace DEV_6.Xml
 {
     /// <summary>
     /// This class provides methods for sorting xml

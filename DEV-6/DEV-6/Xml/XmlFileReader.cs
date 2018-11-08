@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace DEV_6
+namespace DEV_6.Xml
 {
     /// <summary>
     /// Reads xml in string

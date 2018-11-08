@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace DEV_6
+namespace DEV_6.Xml
 {
     /// <summary>
     /// This class parses xml string to xml
