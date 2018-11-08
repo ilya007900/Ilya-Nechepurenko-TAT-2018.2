@@ -13,6 +13,5 @@ namespace DEV_6
             XmlSorter xmlSorter = new XmlSorter(this);
             xmlSorter.Sort();
         }  
-
     }
 }

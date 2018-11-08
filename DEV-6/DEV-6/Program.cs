@@ -10,16 +10,36 @@ namespace DEV_6
         {
             try
             {
-                //if (args.Length != 2)
-                //{
-                //    throw new ArgumentException("Incorrect parameters");
-                //}
-                string path = "xFile.xml";
-                XmlParser xmlParser = new XmlParser(path);
-                XmlToJsonConverter xmlToJsonConverter = new XmlToJsonConverter(xmlParser.Xml);
-                Json.Json json = xmlToJsonConverter.GetJson();
-                JsonOutputer jsonOutputer = new JsonOutputer(json);
-                jsonOutputer.Output();
+                if (args.Length != 2)
+                {
+                    throw new ArgumentException("Incorrect parameters");
+                }
+
+                string fileToConvert = args[0];
+                string resultFile = args[1];
+
+                if (fileToConvert.Contains(".json"))
+                {
+                    JsonParser jsonParser = new JsonParser(fileToConvert);
+                    Json.Json json = jsonParser.Json;
+                    JsonToXmlConverter jsonToXmlConverter = new JsonToXmlConverter(json);
+                    Xml xml = jsonToXmlConverter.Xml;
+                    XmlOutputer xmlOutputer = new XmlOutputer(xml);
+                    xmlOutputer.OutputAsXml();
+                }
+                else if (fileToConvert.Contains(".xml"))
+                {
+                    XmlParser xmlParser = new XmlParser(fileToConvert);
+                    Xml xml = xmlParser.Xml;
+                    XmlToJsonConverter xmlToJsonConverter = new XmlToJsonConverter(xml);
+                    Json.Json json = xmlToJsonConverter.Json;
+                    JsonOutputer jsonOutputer = new JsonOutputer(json);
+                    jsonOutputer.Output();
+                }
+                else
+                {
+                    throw new Exception("Incorrect parameters");
+                }
             }
             catch (Exception ex)
             {
