@@ -172,7 +172,7 @@ namespace DEV_6.Json
         {
             List<JsonElement> values = new List<JsonElement>();
             string name = GetElementName();
-            while (JsonString[Position] != ']')
+            while (!IsArrayEnded())
             {
                 if (IsElementStarted())
                 {
@@ -242,30 +242,6 @@ namespace DEV_6.Json
             }
             Position++;
             return value.ToString();
-        }
-
-        private List<string> GetArrayValue()
-        {
-            List<string> values = new List<string>();
-            StringBuilder value = new StringBuilder();
-            while (!IsElementEnded())
-            {
-                if (JsonString[Position] == '"')
-                {
-                    value.Append(GetStringValue());
-                }
-                else if (JsonString[Position] == ',' || JsonString[Position] == ']')
-                {
-                    values.Add(value.ToString());
-                    value.Clear();
-                }
-                else if (char.IsLetterOrDigit(JsonString[Position])) 
-                {
-                    value.Append(JsonString[Position]);
-                }
-                Position++;
-            }
-            return values;
         }
 
         private bool IsArrayStarted()
