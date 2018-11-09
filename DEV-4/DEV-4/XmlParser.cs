@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace DEV_4
@@ -324,8 +325,14 @@ namespace DEV_4
         /// </summary>
         /// <param name="xmlString">xml string to parse</param>
         /// <returns>xml</returns>
+        /// <exception cref="ArgumentNullException">thrown if param xmlString is null or empty</exception>
+        /// <exception cref="NullReferenceException">thrown if returns xml is incorrect</exception>
         public Xml Parse(string xmlString)
         {
+            if (string.IsNullOrEmpty(xmlString))
+            {
+                throw new ArgumentNullException("String is null or empty");
+            }
             XmlString = xmlString;
             Xml xml = new Xml();
             while (Position < XmlString.Length)
@@ -344,6 +351,10 @@ namespace DEV_4
                     break;
                 }
                 Position++;
+            }
+            if (xml.Root == null)
+            {
+                throw new NullReferenceException("Incorrect xml");
             }
             return xml;
         }
