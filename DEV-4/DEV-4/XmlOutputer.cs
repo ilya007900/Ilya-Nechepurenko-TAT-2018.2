@@ -10,8 +10,6 @@ namespace DEV_4
     {
         private List<XmlElement> ChainOfElements { get; set; }
 
-        private Xml Xml { get; set; }
-
         /// <summary>
         /// Outputs xml element as xml file
         /// </summary>
@@ -95,26 +93,25 @@ namespace DEV_4
             ChainOfElements.Remove(element);
         }
 
-        public XmlOutputer(Xml xml)
+        public XmlOutputer() { }
+
+        /// <summary>
+        /// Outputs xml as xml
+        /// <param name="xml">xml to output</param>
+        /// </summary>
+        public void OutputAsXml(Xml xml)
         {
-            Xml = xml;
+            OutputElementAsXml(xml.Root);
         }
 
         /// <summary>
-        /// Outputs Root element as xml
+        /// Outputs xml as chain of elements
+        /// <param name="xml">xml to output</param>
         /// </summary>
-        public void OutputAsXml()
-        {
-            OutputElementAsXml(Xml.Root);
-        }
-
-        /// <summary>
-        /// Outputs Root element as chain of elements
-        /// </summary>
-        public void OutputAsChainOfElements()
+        public void OutputAsChainOfElements(Xml xml)
         {
             ChainOfElements = new List<XmlElement>();
-            OutputChainOfElements(Xml.Root);
+            OutputChainOfElements(xml.Root);
         }
     }
 }

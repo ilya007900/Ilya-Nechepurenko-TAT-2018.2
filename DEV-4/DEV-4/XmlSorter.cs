@@ -7,8 +7,6 @@ namespace DEV_4
     /// </summary>
     class XmlSorter
     {
-        private Xml Xml { get; set; }
-
         /// <summary>
         /// Sorts element
         /// </summary>
@@ -85,18 +83,15 @@ namespace DEV_4
             });
         }
 
-        public XmlSorter(Xml xml)
-        {
-            Xml = xml;
-        }
+        public XmlSorter() { }
 
         /// <summary>
         /// Sorts xml
+        /// <param name="xml">xml to sort</param>
         /// </summary>
-        public void Sort()
+        public void Sort(Xml xml)
         {
-            SortElement(Xml.Root);
+            SortElement(xml.Root);
         }
-
     }
 }

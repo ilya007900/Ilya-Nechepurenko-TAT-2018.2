@@ -4,17 +4,17 @@ using System.IO;
 namespace DEV_4
 {
     /// <summary>
-    /// Reads xml in string
+    /// Reads file
     /// </summary>
-    class XmlFileReader
+    class FileReader
     {
         /// <summary>
-        /// Reads and writes xml from file in string
+        /// Reads file in string
         /// </summary>
         /// <param name="path">path to file</param>
-        /// <returns>xml in string</returns>
+        /// <returns>file in string</returns>
         /// <exception cref="Exception">Trown if can't read file</exception>
-        public string ReadXmlFile(string path)
+        public string ReadFile(string path)
         {
             FileInfo fileInfo = new FileInfo(path);
             if (!fileInfo.Exists)

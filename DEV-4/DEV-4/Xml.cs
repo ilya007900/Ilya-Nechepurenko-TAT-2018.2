@@ -7,12 +7,5 @@ namespace DEV_4
     class Xml
     {
         public XmlElement Root { get; set; }
-
-        public void Sort()
-        {
-            XmlSorter xmlSorter = new XmlSorter(this);
-            xmlSorter.Sort();
-        }  
-
     }
 }

@@ -20,11 +20,14 @@ namespace DEV_4
                     throw new ArgumentException("Incorrect parameters");
                 }
                 string path = args[0];
-                XmlParser xmlParser = new XmlParser(path);
-                Xml xml = xmlParser.Xml;
-                xml.Sort();
-                XmlOutputer xmlOutputer = new XmlOutputer(xml);
-                xmlOutputer.OutputAsChainOfElements();
+                FileReader fileReader = new FileReader();
+                string xmlString = fileReader.ReadFile(path);
+                XmlParser xmlParser = new XmlParser();
+                Xml xml = xmlParser.Parse(xmlString);
+                XmlSorter xmlSorter = new XmlSorter();
+                xmlSorter.Sort(xml);
+                XmlOutputer xmlOutputer = new XmlOutputer();
+                xmlOutputer.OutputAsChainOfElements(xml);
             }
             catch (IndexOutOfRangeException)
             {
