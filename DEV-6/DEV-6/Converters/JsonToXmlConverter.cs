@@ -9,18 +9,6 @@ namespace DEV_6.Converters
         private Json.Json Json { get; set; }
         private Xml.Xml Xml { get; set; }
 
-        public JsonToXmlConverter() { }
-
-        public Xml.Xml Convert(Json.Json json)
-        {
-            Json = json;
-            Xml.Xml xml = new Xml.Xml
-            {
-                Root = JsonElementToXmlElement(Json.Root)
-            };
-            return xml;
-        }
-
         private XmlElement JsonElementToXmlElement(Json.JsonElement jsonElement)
         {
             XmlElement xmlElement = new XmlElement();
@@ -47,6 +35,18 @@ namespace DEV_6.Converters
             }
 
             return xmlElement;
+        }
+
+        public JsonToXmlConverter() { }
+
+        public Xml.Xml Convert(Json.Json json)
+        {
+            Json = json;
+            Xml.Xml xml = new Xml.Xml
+            {
+                Root = JsonElementToXmlElement(Json.Root)
+            };
+            return xml;
         }
     }
 }

@@ -9,18 +9,6 @@ namespace DEV_6.Json
         private Json Json { get; set; }
         private StreamWriter StreamWriter { get; set; }
 
-        public JsonToFileWriter() { }
-
-        public void WriteToFile(Json json, string filePath)
-        {
-            Json = json;
-            StreamWriter = new StreamWriter(filePath, true);
-            StreamWriter.WriteLine('{');
-            WriteElement(Json.Root);
-            StreamWriter.WriteLine('}');
-            StreamWriter.Dispose();
-        }
-
         private void WriteElement(JsonElement element)
         {
             StreamWriter.Write($"\"{element.Name}\":");
@@ -150,6 +138,18 @@ namespace DEV_6.Json
                     StreamWriter.WriteLine();
                 }
             }
+        }
+
+        public JsonToFileWriter() { }
+
+        public void WriteToFile(Json json, string filePath)
+        {
+            Json = json;
+            StreamWriter = new StreamWriter(filePath, true);
+            StreamWriter.WriteLine('{');
+            WriteElement(Json.Root);
+            StreamWriter.WriteLine('}');
+            StreamWriter.Dispose();
         }
     }
 }
