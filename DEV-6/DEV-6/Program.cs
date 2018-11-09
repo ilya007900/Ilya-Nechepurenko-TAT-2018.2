@@ -25,6 +25,8 @@ namespace DEV_6
                     Json.Json json = jsonParser.Json;
                     JsonToXmlConverter jsonToXmlConverter = new JsonToXmlConverter(json);
                     Xml.Xml xml = jsonToXmlConverter.Xml;
+                    XmlToFileWriter xmlToFileWriter = new XmlToFileWriter(xml);
+                    xmlToFileWriter.WriteToFile(resultFile);
                     XmlOutputer xmlOutputer = new XmlOutputer(xml);
                     xmlOutputer.OutputAsXml();
                 }
@@ -36,8 +38,8 @@ namespace DEV_6
                     Json.Json json = xmlToJsonConverter.Json;
                     JsonOutputer jsonOutputer = new JsonOutputer(json);
                     jsonOutputer.Output();
-                    JsonToFileWriter jsonToFileWriter = new JsonToFileWriter(json, resultFile);
-                    jsonToFileWriter.WriteToFile();
+                    JsonToFileWriter jsonToFileWriter = new JsonToFileWriter(json);
+                    jsonToFileWriter.WriteToFile(resultFile);
                 }
                 else
                 {
