@@ -9,23 +9,7 @@ namespace DEV_6.Json
         private int Position { get; set; }
         private string JsonString { get; set; }
         private static string SymbolsToIgnore { get; } = "\n\r\t";
-
-        private Json Parse()
-        {
-            Json json = new Json();
-
-            while (Position < JsonString.Length)
-            {
-                if (IsElementStarted())
-                {
-                    json.Root = GetElement();
-                }
-                Position++;
-            }
-
-            return json;
-        }
-
+        
         private bool IsElementStarted()
         {
             if (JsonString[Position] == '{')
@@ -271,13 +255,23 @@ namespace DEV_6.Json
             return false;
         }
 
-        public Json Json { get; private set; }
+        public JsonParser() { }
 
-        public JsonParser(string path)
+        public Json Parse(string jsonString)
         {
-            JsonFileReader jsonFileReader = new JsonFileReader();
-            JsonString = jsonFileReader.ReadJsonFile(path);
-            Json = Parse();
+            JsonString = jsonString;
+            Json json = new Json();
+
+            while (Position < JsonString.Length)
+            {
+                if (IsElementStarted())
+                {
+                    json.Root = GetElement();
+                }
+                Position++;
+            }
+
+            return json;
         }
     }
 }

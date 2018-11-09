@@ -1,20 +1,11 @@
 ﻿using System;
 using System.IO;
 
-namespace DEV_6.Xml
+namespace DEV_6
 {
-    /// <summary>
-    /// Reads xml in string
-    /// </summary>
-    class XmlFileReader
+    class FileReader
     {
-        /// <summary>
-        /// Reads and writes xml from file in string
-        /// </summary>
-        /// <param name="path">path to file</param>
-        /// <returns>xml in string</returns>
-        /// <exception cref="Exception">Trown if can't read file</exception>
-        public string ReadXmlFile(string path)
+        public string ReadFileAsString(string path)
         {
             FileInfo fileInfo = new FileInfo(path);
             if (!fileInfo.Exists)

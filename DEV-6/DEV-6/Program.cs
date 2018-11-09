@@ -18,28 +18,27 @@ namespace DEV_6
 
                 string fileToConvert = args[0];
                 string resultFile = args[1];
+                FileReader fileReader = new FileReader();
 
                 if (fileToConvert.Contains(".json"))
                 {
-                    JsonParser jsonParser = new JsonParser(fileToConvert);
-                    Json.Json json = jsonParser.Json;
-                    JsonToXmlConverter jsonToXmlConverter = new JsonToXmlConverter(json);
-                    Xml.Xml xml = jsonToXmlConverter.Xml;
-                    XmlToFileWriter xmlToFileWriter = new XmlToFileWriter(xml);
-                    xmlToFileWriter.WriteToFile(resultFile);
-                    XmlOutputer xmlOutputer = new XmlOutputer(xml);
-                    xmlOutputer.OutputAsXml();
+                    JsonParser jsonParser = new JsonParser();
+                    string jsonString = fileReader.ReadFileAsString(fileToConvert);
+                    Json.Json json = jsonParser.Parse(jsonString);
+                    JsonToXmlConverter jsonToXmlConverter = new JsonToXmlConverter();
+                    Xml.Xml xml = jsonToXmlConverter.Convert(json);
+                    XmlToFileWriter xmlToFileWriter = new XmlToFileWriter();
+                    xmlToFileWriter.WriteToFile(xml, resultFile);
                 }
                 else if (fileToConvert.Contains(".xml"))
                 {
-                    XmlParser xmlParser = new XmlParser(fileToConvert);
-                    Xml.Xml xml = xmlParser.Xml;
-                    XmlToJsonConverter xmlToJsonConverter = new XmlToJsonConverter(xml);
-                    Json.Json json = xmlToJsonConverter.Json;
-                    JsonOutputer jsonOutputer = new JsonOutputer(json);
-                    jsonOutputer.Output();
-                    JsonToFileWriter jsonToFileWriter = new JsonToFileWriter(json);
-                    jsonToFileWriter.WriteToFile(resultFile);
+                    XmlParser xmlParser = new XmlParser();
+                    string xmlString = fileReader.ReadFileAsString(fileToConvert);
+                    Xml.Xml xml = xmlParser.Parse(xmlString);
+                    XmlToJsonConverter xmlToJsonConverter = new XmlToJsonConverter();
+                    Json.Json json = xmlToJsonConverter.Convert(xml);
+                    JsonToFileWriter jsonToFileWriter = new JsonToFileWriter();
+                    jsonToFileWriter.WriteToFile(json, resultFile);
                 }
                 else
                 {

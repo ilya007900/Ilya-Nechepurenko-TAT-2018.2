@@ -9,13 +9,11 @@ namespace DEV_6.Json
         private Json Json { get; set; }
         private StreamWriter StreamWriter { get; set; }
 
-        public JsonToFileWriter(Json json)
+        public JsonToFileWriter() { }
+
+        public void WriteToFile(Json json, string filePath)
         {
             Json = json;
-        }
-
-        public void WriteToFile(string filePath)
-        {
             StreamWriter = new StreamWriter(filePath, true);
             StreamWriter.WriteLine('{');
             WriteElement(Json.Root);

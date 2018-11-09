@@ -7,16 +7,13 @@ namespace DEV_6.Converters
     class JsonToXmlConverter
     {
         private Json.Json Json { get; set; }
-        public Xml.Xml Xml { get; private set; }
+        private Xml.Xml Xml { get; set; }
 
-        public JsonToXmlConverter(Json.Json json)
+        public JsonToXmlConverter() { }
+
+        public Xml.Xml Convert(Json.Json json)
         {
             Json = json;
-            Xml = Convert();
-        }
-
-        private Xml.Xml Convert()
-        {
             Xml.Xml xml = new Xml.Xml
             {
                 Root = JsonElementToXmlElement(Json.Root)

@@ -11,34 +11,7 @@ namespace DEV_6.Xml
         private int Level { get; set; }
         private int Position { get; set; }
         private string XmlString { get; set; }
-        private static string SymbolsToIgnore { get; } = "\n\r\t";
-
-        /// <summary>
-        /// Strats parsing from the root element
-        /// </summary>
-        /// <returns>xml</returns>
-        private Xml Parse()
-        {
-            Xml = new Xml();
-            while (Position < XmlString.Length)
-            {
-                if (IsDeclarationStarted())
-                {
-                    IgnoreDeclaration();
-                }
-                if (IsCommentStarted())
-                {
-                    IgnoreComment();
-                }
-                if (IsElementStarted())
-                {
-                    Xml.Root = GetElement();
-                    break;
-                }
-                Position++;
-            }
-            return Xml;
-        }
+        private static string SymbolsToIgnore { get; } = "\n\r\t";      
 
         /// <summary>
         /// Parses string into element
@@ -344,13 +317,35 @@ namespace DEV_6.Xml
             }
         }
 
-        public Xml Xml { get; private set; }
+        public XmlParser() { }
 
-        public XmlParser(string path)
+        /// <summary>
+        /// Strats parsing from the root element
+        /// </summary>
+        /// <param name="xmlString">xml string to convert</param>
+        /// <returns>xml</returns>
+        public Xml Parse(string xmlString)
         {
-            XmlFileReader xmlFileReader = new XmlFileReader();
-            XmlString = xmlFileReader.ReadXmlFile(path);
-            Xml = Parse();
+            XmlString = xmlString;
+            Xml xml = new Xml();
+            while (Position < XmlString.Length)
+            {
+                if (IsDeclarationStarted())
+                {
+                    IgnoreDeclaration();
+                }
+                if (IsCommentStarted())
+                {
+                    IgnoreComment();
+                }
+                if (IsElementStarted())
+                {
+                    xml.Root = GetElement();
+                    break;
+                }
+                Position++;
+            }
+            return xml;
         }
     }
 }
