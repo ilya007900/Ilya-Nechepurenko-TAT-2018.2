@@ -5,7 +5,7 @@ using DEV_6.Xml;
 
 namespace DEV_6
 {
-    class Program
+    class JsonXmlFilesConverter
     {
         static void Main(string[] args)
         {
@@ -27,10 +27,8 @@ namespace DEV_6
                     Json.Json json = jsonParser.Parse(jsonString);
                     JsonToXmlConverter jsonToXmlConverter = new JsonToXmlConverter();
                     Xml.Xml xml = jsonToXmlConverter.Convert(json);
-                    XmlOutputer xmlOutputer = new XmlOutputer();
-                    xmlOutputer.OutputAsXml(xml);
-                    //XmlToFileWriter xmlToFileWriter = new XmlToFileWriter();
-                    //xmlToFileWriter.WriteToFile(xml, resultFile);
+                    XmlToFileWriter xmlToFileWriter = new XmlToFileWriter();
+                    xmlToFileWriter.WriteToFile(xml, resultFile);
                 }
                 else if (fileToConvert.Contains(".xml"))
                 {
@@ -39,10 +37,8 @@ namespace DEV_6
                     Xml.Xml xml = xmlParser.Parse(xmlString);
                     XmlToJsonConverter xmlToJsonConverter = new XmlToJsonConverter();
                     Json.Json json = xmlToJsonConverter.Convert(xml);
-                    JsonOutputer jsonOutputer = new JsonOutputer();
-                    jsonOutputer.Output(json);
-                    //JsonToFileWriter jsonToFileWriter = new JsonToFileWriter();
-                    //jsonToFileWriter.WriteToFile(json, resultFile);
+                    JsonToFileWriter jsonToFileWriter = new JsonToFileWriter();
+                    jsonToFileWriter.WriteToFile(json, resultFile);
                 }
                 else
                 {
