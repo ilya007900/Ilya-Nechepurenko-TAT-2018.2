@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace DEV_6.Xml
@@ -326,6 +327,10 @@ namespace DEV_6.Xml
         /// <returns>xml</returns>
         public Xml Parse(string xmlString)
         {
+            if (string.IsNullOrEmpty(xmlString))
+            {
+                throw new ArgumentNullException("Xml string is null or empty");
+            }
             XmlString = xmlString;
             Xml xml = new Xml();
             while (Position < XmlString.Length)
@@ -344,6 +349,10 @@ namespace DEV_6.Xml
                     break;
                 }
                 Position++;
+            }
+            if (xml.Root == null)
+            {
+                throw new NullReferenceException("Incorrect xml file");
             }
             return xml;
         }

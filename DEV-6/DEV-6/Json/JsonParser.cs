@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace DEV_6.Json
@@ -142,12 +143,11 @@ namespace DEV_6.Json
         {
             int tempPosiion = Position;
             JsonElement tempElement = GetElement();
-            if(tempElement == null)
+            Position = tempPosiion;
+            if (tempElement == null)
             {
-                Position = tempPosiion;
                 return true;
             }
-            Position = tempPosiion;
             return false;
         }
 
@@ -202,7 +202,7 @@ namespace DEV_6.Json
             else
             {
                 StringBuilder value = new StringBuilder();
-                while (!IsElementEnded() && JsonString[Position] != ',' && JsonString[Position] != ']')
+                while (!IsElementEnded() && JsonString[Position] != ',' && !IsArrayEnded())
                 {
                     if (!SymbolsToIgnore.Contains(JsonString[Position]) && JsonString[Position] != ' ') 
                     {
@@ -258,6 +258,10 @@ namespace DEV_6.Json
 
         public Json Parse(string jsonString)
         {
+            if (string.IsNullOrEmpty(jsonString))
+            {
+                throw new ArgumentNullException("Json string is null or empty");
+            }
             JsonString = jsonString;
             Json json = new Json();
 
@@ -270,6 +274,10 @@ namespace DEV_6.Json
                 Position++;
             }
 
+            if (json.Root == null)
+            {
+                throw new NullReferenceException("Incorrect json file");
+            }
             return json;
         }
     }

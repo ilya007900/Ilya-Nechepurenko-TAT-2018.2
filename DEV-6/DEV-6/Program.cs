@@ -27,8 +27,10 @@ namespace DEV_6
                     Json.Json json = jsonParser.Parse(jsonString);
                     JsonToXmlConverter jsonToXmlConverter = new JsonToXmlConverter();
                     Xml.Xml xml = jsonToXmlConverter.Convert(json);
-                    XmlToFileWriter xmlToFileWriter = new XmlToFileWriter();
-                    xmlToFileWriter.WriteToFile(xml, resultFile);
+                    XmlOutputer xmlOutputer = new XmlOutputer();
+                    xmlOutputer.OutputAsXml(xml);
+                    //XmlToFileWriter xmlToFileWriter = new XmlToFileWriter();
+                    //xmlToFileWriter.WriteToFile(xml, resultFile);
                 }
                 else if (fileToConvert.Contains(".xml"))
                 {
@@ -37,13 +39,19 @@ namespace DEV_6
                     Xml.Xml xml = xmlParser.Parse(xmlString);
                     XmlToJsonConverter xmlToJsonConverter = new XmlToJsonConverter();
                     Json.Json json = xmlToJsonConverter.Convert(xml);
-                    JsonToFileWriter jsonToFileWriter = new JsonToFileWriter();
-                    jsonToFileWriter.WriteToFile(json, resultFile);
+                    JsonOutputer jsonOutputer = new JsonOutputer();
+                    jsonOutputer.Output(json);
+                    //JsonToFileWriter jsonToFileWriter = new JsonToFileWriter();
+                    //jsonToFileWriter.WriteToFile(json, resultFile);
                 }
                 else
                 {
                     throw new Exception("Incorrect parameters");
                 }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Incorrect file");
             }
             catch (Exception ex)
             {

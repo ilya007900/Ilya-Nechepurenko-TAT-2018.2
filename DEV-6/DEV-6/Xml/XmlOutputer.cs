@@ -95,24 +95,23 @@ namespace DEV_6.Xml
             ChainOfElements.Remove(element);
         }
 
-        public XmlOutputer(Xml xml)
-        {
-            Xml = xml;
-        }
+        public XmlOutputer() { }
 
         /// <summary>
         /// Outputs Root element as xml
         /// </summary>
-        public void OutputAsXml()
+        public void OutputAsXml(Xml xml)
         {
+            Xml = xml;
             OutputElementAsXml(Xml.Root);
         }
 
         /// <summary>
         /// Outputs Root element as chain of elements
         /// </summary>
-        public void OutputAsChainOfElements()
+        public void OutputAsChainOfElements(Xml xml)
         {
+            Xml = xml;
             ChainOfElements = new List<XmlElement>();
             OutputChainOfElements(Xml.Root);
         }

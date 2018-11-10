@@ -6,15 +6,13 @@ namespace DEV_6.Json
 {
     class JsonOutputer
     {
-        private Json Json { get; }
+        private Json Json { get; set; }
 
-        public JsonOutputer(Json json)
+        public JsonOutputer() { }
+
+        public void Output(Json json)
         {
             Json = json;
-        }
-
-        public void Output()
-        {
             Console.WriteLine('{');
             OutputElement(Json.Root);
             Console.WriteLine("}");
