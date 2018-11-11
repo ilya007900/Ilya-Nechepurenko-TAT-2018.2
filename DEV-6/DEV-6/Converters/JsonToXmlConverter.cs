@@ -10,7 +10,6 @@ namespace DEV_6.Converters
     class JsonToXmlConverter
     {
         private Json.Json Json { get; set; }
-        private Xml.Xml Xml { get; set; }
 
         /// <summary>
         /// Converts Json element to Xml element

@@ -9,7 +9,6 @@ namespace DEV_6.Converters
     /// </summary>
     class XmlToJsonConverter
     {
-        private Json.Json Json { get; set; }
         private Xml.Xml Xml { get; set; }
 
         /// <summary>
@@ -70,11 +69,11 @@ namespace DEV_6.Converters
         public Json.Json Convert(Xml.Xml xml)
         {
             Xml = xml;
-            Json = new Json.Json
+            Json.Json json = new Json.Json
             {
                 Root = XmlElementToJsonElement(Xml.Root)
             };
-            return Json;
+            return json;
         }
     }
 }
