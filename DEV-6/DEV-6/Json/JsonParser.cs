@@ -4,12 +4,19 @@ using System.Text;
 
 namespace DEV_6.Json
 {
+    /// <summary>
+    /// This class parses json string to json
+    /// </summary>
     class JsonParser
     {
         private int Position { get; set; }
         private string JsonString { get; set; }
         private static string SymbolsToIgnore { get; } = "\n\r\t";
-        
+
+        /// <summary>
+        /// Checks the beginning of the element
+        /// </summary>
+        /// <returns>true if element is beginning</returns>
         private bool IsElementStarted()
         {
             if (JsonString[Position] == '{')
@@ -19,6 +26,10 @@ namespace DEV_6.Json
             return false;
         }
 
+        /// <summary>
+        /// Checks the ending of the element
+        /// </summary>
+        /// <returns>true if element is ending</returns>
         private bool IsElementEnded()
         {
             if (JsonString[Position] == '}')
@@ -28,6 +39,10 @@ namespace DEV_6.Json
             return false;
         }
 
+        /// <summary>
+        /// Parses string into json element
+        /// </summary>
+        /// <returns>Json element</returns>
         private JsonElement GetElement()
         {
             JsonElement element = new JsonElement
@@ -38,20 +53,31 @@ namespace DEV_6.Json
             {
                 return null;
             }
-            else if (HaveChildrens())
+            else if (HasChildrens())
             {
                 element.Childrens = GetChildrens();
                 element.Value = null;
             }
             else
             {
-                element.Value = GetValue();
+                if (IsStringStartedOrEnded())
+                {
+                    element.Value = GetStringValue();
+                }
+                else
+                {
+                    element.Value = GetValue();
+                }
                 element.Childrens = null;
             }
 
             return element;
         }
 
+        /// <summary>
+        /// Gets json element name
+        /// </summary>
+        /// <returns>Json element name</returns>
         private string GetElementName()
         {
             StringBuilder name = new StringBuilder();
@@ -70,7 +96,11 @@ namespace DEV_6.Json
             return name.ToString();
         }
 
-        private bool HaveChildrens()
+        /// <summary>
+        /// Checks childrens of json element
+        /// </summary>
+        /// <returns>True if json element has childrens</returns>
+        private bool HasChildrens()
         {
             while (true)
             {
@@ -86,6 +116,10 @@ namespace DEV_6.Json
             }
         }
 
+        /// <summary>
+        /// Checks is json element is array
+        /// </summary>
+        /// <returns>True if json element is array</returns>
         private bool IsArray()
         {
             while (true)
@@ -102,6 +136,10 @@ namespace DEV_6.Json
             }
         }
 
+        /// <summary>
+        /// Gets childrens of json element
+        /// </summary>
+        /// <returns>Childrens of json element</returns>
         private List<JsonElement> GetChildrens()
         {
             {
@@ -139,6 +177,10 @@ namespace DEV_6.Json
             }
         }
 
+        /// <summary>
+        /// Checks are childrens of json element is array
+        /// </summary>
+        /// <returns>True if childrens of json element is array</returns>
         private bool CheckArray()
         {
             int tempPosiion = Position;
@@ -151,6 +193,10 @@ namespace DEV_6.Json
             return false;
         }
 
+        /// <summary>
+        /// Gets array of json element childrens
+        /// </summary>
+        /// <returns>Array of json element childrens</returns>
         private List<JsonElement> GetArray()
         {
             List<JsonElement> values = new List<JsonElement>();
@@ -192,28 +238,28 @@ namespace DEV_6.Json
             return values;
         }
 
+        /// <summary>
+        /// Gets value of json element
+        /// </summary>
+        /// <returns>Value of json element</returns>
         private string GetValue()
         {
-
-            if (JsonString[Position] == '"')
+            StringBuilder value = new StringBuilder();
+            while (!IsElementEnded() && JsonString[Position] != ',' && !IsArrayEnded())
             {
-                return GetStringValue();
-            }
-            else
-            {
-                StringBuilder value = new StringBuilder();
-                while (!IsElementEnded() && JsonString[Position] != ',' && !IsArrayEnded())
+                if (!SymbolsToIgnore.Contains(JsonString[Position]) && JsonString[Position] != ' ')
                 {
-                    if (!SymbolsToIgnore.Contains(JsonString[Position]) && JsonString[Position] != ' ') 
-                    {
-                        value.Append(JsonString[Position]);
-                    }
-                    Position++;
+                    value.Append(JsonString[Position]);
                 }
-                return value.ToString();
+                Position++;
             }
+            return value.ToString();
         }
 
+        /// <summary>
+        /// Gets string value of json element
+        /// </summary>
+        /// <returns>String value of json element</returns>
         private string GetStringValue()
         {
             StringBuilder value = new StringBuilder();
@@ -227,6 +273,10 @@ namespace DEV_6.Json
             return value.ToString();
         }
 
+        /// <summary>
+        /// Checks the beginning of the array
+        /// </summary>
+        /// <returns>true if array is beginning</returns>
         private bool IsArrayStarted()
         {
             if (JsonString[Position] == '[')
@@ -236,6 +286,10 @@ namespace DEV_6.Json
             return false;
         }
 
+        /// <summary>
+        /// Checks the ending of the array
+        /// </summary>
+        /// <returns>true if array is ending</returns>
         private bool IsArrayEnded()
         {
             if (JsonString[Position] == ']')
@@ -245,6 +299,10 @@ namespace DEV_6.Json
             return false;
         }
 
+        /// <summary>
+        /// Checks the beginning or ending of the string
+        /// </summary>
+        /// <returns>true if string is beginning or ending</returns>
         private bool IsStringStartedOrEnded()
         {
             if (JsonString[Position] == '"')
@@ -256,6 +314,11 @@ namespace DEV_6.Json
 
         public JsonParser() { }
 
+        /// <summary>
+        /// Parses json string to Json
+        /// </summary>
+        /// <param name="jsonString">Json string to parse</param>
+        /// <returns>Json</returns>
         public Json Parse(string jsonString)
         {
             if (string.IsNullOrEmpty(jsonString))

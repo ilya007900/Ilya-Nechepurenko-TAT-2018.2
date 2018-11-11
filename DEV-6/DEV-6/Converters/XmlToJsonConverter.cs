@@ -4,11 +4,19 @@ using DEV_6.Xml;
 
 namespace DEV_6.Converters
 {
+    //// <summary>
+    /// Converts Xml to Json
+    /// </summary>
     class XmlToJsonConverter
     {
         private Json.Json Json { get; set; }
         private Xml.Xml Xml { get; set; }
 
+        /// <summary>
+        /// Converts Xml element jo Json element
+        /// </summary>
+        /// <param name="xmlElement">Xml element to convert</param>
+        /// <returns>Json element</returns>
         private JsonElement XmlElementToJsonElement(XmlElement xmlElement)
         {
             JsonElement jsonElement = new JsonElement
@@ -54,6 +62,11 @@ namespace DEV_6.Converters
 
         public XmlToJsonConverter() { }
 
+        /// <summary>
+        /// Converts Xml to Json
+        /// </summary>
+        /// <param name="xml">Xml to convert</param>
+        /// <returns>Json</returns>
         public Json.Json Convert(Xml.Xml xml)
         {
             Xml = xml;

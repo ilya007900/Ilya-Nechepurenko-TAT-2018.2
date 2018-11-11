@@ -4,11 +4,18 @@ using System.Linq;
 
 namespace DEV_6.Json
 {
+    /// <summary>
+    /// Writes Json to file
+    /// </summary>
     class JsonToFileWriter
     {
         private Json Json { get; set; }
         private StreamWriter StreamWriter { get; set; }
 
+        /// <summary>
+        /// Writes json element to file
+        /// </summary>
+        /// <param name="element">Json element to write</param>
         private void WriteElement(JsonElement element)
         {
             StreamWriter.Write($"\"{element.Name}\":");
@@ -32,15 +39,30 @@ namespace DEV_6.Json
             }
         }
 
+        /// <summary>
+        /// Checks are json element childrens is array
+        /// </summary>
+        /// <param name="elements">Json element childrens to check</param>
+        /// <returns>True if childrens is array</returns>
         private bool IsArray(List<JsonElement> elements)
         {
-            if (elements.Where(x => x.Name == elements.FirstOrDefault().Name).Count() > 1)
+            for (int i = 0; i < elements.Count; i++)
             {
-                return true;
+                for (int j = i + 1; j < elements.Count; j++)
+                {
+                    if (string.Compare(elements[i].Name, elements[j].Name) == 0)
+                    {
+                        return true;
+                    }
+                }
             }
             return false;
         }
 
+        /// <summary>
+        /// Writes json element childrens as arrays
+        /// </summary>
+        /// <param name="elements">Json element childrens to write as arrays</param>
         private void WriteChildrensAsArrays(List<JsonElement> elements)
         {
             var arrays = elements.GroupBy(x => x.Name).ToList();
@@ -68,6 +90,10 @@ namespace DEV_6.Json
             }
         }
 
+        /// <summary>
+        /// Writes json element childrens as array
+        /// </summary>
+        /// <param name="elements">Json element childrens to write as array</param>
         private void WriteArray(IGrouping<string, JsonElement> elements)
         {
             StreamWriter.WriteLine('[');
@@ -88,6 +114,10 @@ namespace DEV_6.Json
             StreamWriter.Write("]");
         }
 
+        /// <summary>
+        /// Writes json element as member of array to file
+        /// </summary>
+        /// <param name="element"></param>
         private void WriteElementInArray(JsonElement element)
         {
             if (element.Value != null)
@@ -122,6 +152,10 @@ namespace DEV_6.Json
             }
         }
 
+        /// <summary>
+        /// Writes childrens of json element to file
+        /// </summary>
+        /// <param name="childrens">Childrens of json element to write</param>
         private void WriteChildrens(List<JsonElement> childrens)
         {
             int countOfChildrens = childrens.Count;
@@ -142,6 +176,11 @@ namespace DEV_6.Json
 
         public JsonToFileWriter() { }
 
+        /// <summary>
+        /// Writes Json to file
+        /// </summary>
+        /// <param name="json">Json to write</param>
+        /// <param name="filePath">Path to file</param>
         public void WriteToFile(Json json, string filePath)
         {
             Json = json;

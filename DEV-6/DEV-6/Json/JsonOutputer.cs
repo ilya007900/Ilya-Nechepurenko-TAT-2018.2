@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace DEV_6.Json
 {
+    /// <summary>
+    /// This class provides methods for output Json to console
+    /// </summary>
     class JsonOutputer
     {
         private Json Json { get; set; }

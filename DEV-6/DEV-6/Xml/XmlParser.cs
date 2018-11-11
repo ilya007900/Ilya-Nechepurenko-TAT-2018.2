@@ -15,9 +15,9 @@ namespace DEV_6.Xml
         private static string SymbolsToIgnore { get; } = "\n\r\t";      
 
         /// <summary>
-        /// Parses string into element
+        /// Parses string into xml element
         /// </summary>
-        /// <returns>Element</returns>
+        /// <returns>Xml element</returns>
         private XmlElement GetElement()
         {
             XmlElement element = new XmlElement
@@ -324,7 +324,7 @@ namespace DEV_6.Xml
         /// Strats parsing from the root element
         /// </summary>
         /// <param name="xmlString">xml string to convert</param>
-        /// <returns>xml</returns>
+        /// <returns>Xml</returns>
         public Xml Parse(string xmlString)
         {
             if (string.IsNullOrEmpty(xmlString))

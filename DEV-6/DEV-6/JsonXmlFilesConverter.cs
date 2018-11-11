@@ -5,8 +5,15 @@ using DEV_6.Xml;
 
 namespace DEV_6
 {
+    /// <summary>
+    /// Converts Json file to Xml file and Xml file to Json file
+    /// </summary>
     class JsonXmlFilesConverter
     {
+        /// <summary>
+        /// Entry point
+        /// </summary>
+        /// <param name="args">File paths</param>
         static void Main(string[] args)
         {
             try
