@@ -5,7 +5,7 @@ namespace DEV_4
     /// <summary>
     /// This programm gets xml file from the command line and parses
     /// </summary>
-    class MyXmlHandler
+    class XmlFileParser
     {
         /// <summary>
         /// Entry point

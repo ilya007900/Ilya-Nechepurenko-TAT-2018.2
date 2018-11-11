@@ -21,12 +21,9 @@ namespace DEV_4
             {
                 throw new Exception("Can not read file");
             }
-            else
+            using (StreamReader reader = new StreamReader(path))
             {
-                using (StreamReader reader = new StreamReader(path))
-                {
-                    return reader.ReadToEnd();
-                }
+                return reader.ReadToEnd();
             }
         }
     }
