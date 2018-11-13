@@ -331,6 +331,8 @@ namespace DEV_6.Xml
             {
                 throw new ArgumentNullException("Xml string is null or empty");
             }
+            Position = 0;
+            Level = 0;
             XmlString = xmlString;
             Xml xml = new Xml();
             while (Position < XmlString.Length)

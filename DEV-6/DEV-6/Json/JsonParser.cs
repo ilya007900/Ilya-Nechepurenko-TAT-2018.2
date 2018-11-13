@@ -325,6 +325,7 @@ namespace DEV_6.Json
             {
                 throw new ArgumentNullException("Json string is null or empty");
             }
+            Position = 0;
             JsonString = jsonString;
             Json json = new Json();
 
