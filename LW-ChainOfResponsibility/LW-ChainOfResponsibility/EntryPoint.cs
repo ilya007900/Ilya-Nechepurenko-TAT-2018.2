@@ -15,11 +15,11 @@ namespace LW_ChainOfResponsibility
         {
             try
             {
-                Point point1 = new Point { X = 0, Y = 5 };
-                Point point2 = new Point { X = 4, Y = 1 };
-                Point point3 = new Point { X = 0, Y = 2 };
+                Point point1 = new Point { X = 5, Y = 5 };
+                Point point2 = new Point { X = 7, Y = 1 };
+                Point point3 = new Point { X = 4, Y = 0 };
 
-                ITriangleBuilder triangleBuilder = new RightTriangleBuilder(new EquilateralTriangleBuilder(new SimpleTriangleBuilder()));
+                TriangleBuilder triangleBuilder = new RightTriangleBuilder(new EquilateralTriangleBuilder(new SimpleTriangleBuilder(null)));
                 Triangle triangle = triangleBuilder.Create(point1, point2, point3);
                 Console.WriteLine(triangle.GetSquare());
             }

@@ -16,11 +16,12 @@ namespace LW_ChainOfResponsibility
 
         public override double GetSquare()
         {
-            double a = Point1.X - Point3.X;
-            double b = Point1.Y - Point3.Y;
-            double c = Point2.X - Point3.X;
-            double d = Point2.Y - Point3.Y;
-            return Math.Abs(a * d - b * c) / 2;
+            double ab = Point.GetDistance(Point1, Point2);
+            double ac = Point.GetDistance(Point1, Point3);
+            double bc = Point.GetDistance(Point2, Point3);
+            double cathetus1 = Math.Min(ab, ac);
+            double cathetus2 = Math.Min(Math.Max(ab, ac), bc);
+            return cathetus1 * cathetus2 / 2;
         }
     }
 }

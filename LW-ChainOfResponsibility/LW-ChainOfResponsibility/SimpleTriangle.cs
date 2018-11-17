@@ -16,11 +16,9 @@ namespace LW_ChainOfResponsibility
 
         public override double GetSquare()
         {
-            double a = Point1.X - Point3.X;
-            double b = Point1.Y - Point3.Y;
-            double c = Point2.X - Point3.X;
-            double d = Point2.Y - Point3.Y;
-            return Math.Abs(a * d - b * c) / 2;
+            double[,] matrix = { { Point1.X - Point3.X,Point1.Y - Point3.Y},
+                {Point2.X - Point3.X, Point2.Y - Point3.Y} };
+            return Math.Abs(matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0]) / 2;
         }
     }
 }

@@ -5,60 +5,47 @@ namespace LW_ChainOfResponsibility
     /// <summary>
     /// Builds right triangle
     /// </summary>
-    class RightTriangleBuilder : ITriangleBuilder
+    class RightTriangleBuilder : TriangleBuilder
     {
-        private ITriangleBuilder EquilateralTriangleBuilder { get; set; }
+        private TriangleBuilder Next { get; set; }
 
-        public RightTriangleBuilder(EquilateralTriangleBuilder equilateralTriangleBuilder)
+        public RightTriangleBuilder(TriangleBuilder next)
         {
-            EquilateralTriangleBuilder = equilateralTriangleBuilder;
+            Next = next;
         }
 
-        public Triangle Create(Point point1, Point point2, Point point3)
+        public override Triangle Create(Point point1, Point point2, Point point3)
         {
-            if (!IsTriangle(point1, point2, point3))
-            {
-                throw new Exception("Incorrect data");
-            }
             if (Check(point1, point2, point3))
             {
                 return new RightTriangle(point1, point2, point3);
             }
+            else if (Next != null)
+            {
+                return Next.Create(point1, point2, point3);
+            }
             else
             {
-                return EquilateralTriangleBuilder.Create(point1, point2, point3);
+                throw new Exception("Incorrect data");
             }
         }
 
-        public bool Check(Point point1, Point point2, Point point3)
+        protected override bool Check(Point point1, Point point2, Point point3)
         {
-            if ((Math.Abs(point1.X - point2.X) < double.Epsilon &&
-                Math.Abs(point1.Y - point3.Y) < double.Epsilon))
+            if (!base.Check(point1, point2, point3))
+            {
+                return false;
+            }
+            double ab = Point.GetDistance(point1, point2);
+            double ac = Point.GetDistance(point1, point3);
+            double bc = Point.GetDistance(point2, point3);
+            if (ab * ab + ac * ac - bc * bc < double.Epsilon ||
+                ab * ab + bc * bc - ac * ac < double.Epsilon ||
+                ac * ac + bc * bc - ab * ab < double.Epsilon)
             {
                 return true;
             }
             return false;
-        }
-
-        /// <summary>
-        /// Checks is points form triangle
-        /// </summary>
-        /// <param name="point1">First point</param>
-        /// <param name="point2">Second point</param>
-        /// <param name="point3">Third point</param>
-        /// <returns>True if points form triangle</returns>
-        public bool IsTriangle(Point point1, Point point2, Point point3)
-        {
-            if ((point1.X - point2.X <= double.Epsilon &&
-                point1.X - point3.X <= double.Epsilon &&
-                point2.X - point3.X <= double.Epsilon) ||
-                (point1.Y - point2.Y <= double.Epsilon &&
-                point1.Y - point3.Y <= double.Epsilon &&
-                point2.Y - point3.Y <= double.Epsilon))
-            {
-                return false;
-            }
-            return true;
         }
     }
 }

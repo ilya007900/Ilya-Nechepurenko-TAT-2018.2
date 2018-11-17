@@ -18,7 +18,7 @@ namespace LW_ChainOfResponsibility
         /// <returns>Distance between two points</returns>
         public static double GetDistance(Point point1, Point point2)
         {
-            return Math.Pow(point1.X * point2.X - point1.Y * point2.Y, 0.5);
+            return Math.Pow(Math.Pow(point1.X - point2.X, 2) + Math.Pow(point1.Y - point2.Y, 2), 0.5);
         }
     }
 }
