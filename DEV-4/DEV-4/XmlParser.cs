@@ -51,11 +51,7 @@ namespace DEV_4
         /// <returns>true if element is beginning</returns>
         private bool IsElementStarted()
         {
-            if (XmlString[Position] == '<' && XmlString[Position + 1] != '/')
-            {
-                return true;
-            }
-            return false;
+            return (XmlString[Position] == '<' && XmlString[Position + 1] != '/');
         }
 
         /// <summary>
@@ -64,11 +60,7 @@ namespace DEV_4
         /// <returns>true if element is ending</returns>
         private bool IsElementEnded()
         {
-            if (XmlString[Position] == '<' && XmlString[Position + 1] == '/')
-            {
-                return true;
-            }
-            return false;
+            return (XmlString[Position] == '<' && XmlString[Position + 1] == '/');
         }
 
         /// <summary>
@@ -249,12 +241,8 @@ namespace DEV_4
         /// <returns>true if comment is started</returns>
         private bool IsCommentStarted()
         {
-            if (XmlString[Position] == '<' && XmlString[Position + 1] == '!' &&
-                XmlString[Position + 2] == '-' && XmlString[Position + 3] == '-')
-            {
-                return true;
-            }
-            return false;
+            return (XmlString[Position] == '<' && XmlString[Position + 1] == '!' &&
+                XmlString[Position + 2] == '-' && XmlString[Position + 3] == '-');
         }
 
         /// <summary>
@@ -263,11 +251,7 @@ namespace DEV_4
         /// <returns>true if comment is ended</returns>
         private bool IsCommentEnded()
         {
-            if (XmlString[Position] == '>' && XmlString[Position - 1] == '-' && XmlString[Position - 2] == '-')
-            {
-                return true;
-            }
-            return false;
+            return (XmlString[Position] == '>' && XmlString[Position - 1] == '-' && XmlString[Position - 2] == '-');
         }
 
         /// <summary>
@@ -287,11 +271,7 @@ namespace DEV_4
         /// <returns>True if declaration is started</returns>
         private bool IsDeclarationStarted()
         {
-            if (XmlString[Position] == '<' && XmlString[Position + 1] == '?')
-            {
-                return true;
-            }
-            return false;
+            return (XmlString[Position] == '<' && XmlString[Position + 1] == '?');
         }
 
         /// <summary>
@@ -300,11 +280,7 @@ namespace DEV_4
         /// <returns>True if declaration is ended</returns>
         private bool IsDeclarationEnded()
         {
-            if (XmlString[Position] == '?' && XmlString[Position + 1] == '>')
-            {
-                return true;
-            }
-            return false;
+            return (XmlString[Position] == '?' && XmlString[Position + 1] == '>');
         }
 
         /// <summary>
