@@ -37,11 +37,7 @@ namespace LW_ChainOfResponsibility
         /// <returns>true if class can create triangle</returns>
         protected virtual bool Check(Point point1, Point point2, Point point3)
         {
-            if (IsTriangle(point1, point2, point3))
-            {
-                return true;
-            }
-            return false;
+            return IsTriangle(point1, point2, point3);
         }
 
         public abstract Triangle Create(Point point1, Point point2, Point point3);

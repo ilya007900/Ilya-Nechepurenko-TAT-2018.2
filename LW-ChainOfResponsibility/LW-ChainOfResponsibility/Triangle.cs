@@ -14,7 +14,7 @@ namespace LW_ChainOfResponsibility
         /// <summary>
         /// Gets triangle square
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Triangle square</returns>
         public abstract double GetSquare();
     }
 }
