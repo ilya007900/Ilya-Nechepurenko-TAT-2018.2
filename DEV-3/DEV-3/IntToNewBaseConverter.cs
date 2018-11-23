@@ -6,7 +6,7 @@ namespace DEV_3
     /// <summary>
     /// Class that provides methods to convert deciaml int in a specified base
     /// </summary>
-    class IntToNewBaseConverter
+    public class IntToNewBaseConverter
     {
         private static string SymbolsOfNewBase { get; } = "0123456789ABCDEFGHIJ";
         public const int MinBase = 2;
