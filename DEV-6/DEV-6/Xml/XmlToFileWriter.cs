@@ -41,8 +41,6 @@ namespace DEV_6.Xml
             }
         }
 
-        public XmlToFileWriter() { }
-
         /// <summary>
         /// Writes Xml to file
         /// </summary>

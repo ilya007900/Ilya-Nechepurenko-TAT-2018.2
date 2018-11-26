@@ -174,8 +174,6 @@ namespace DEV_6.Json
             }
         }
 
-        public JsonToFileWriter() { }
-
         /// <summary>
         /// Writes Json to file
         /// </summary>

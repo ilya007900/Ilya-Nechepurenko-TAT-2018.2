@@ -59,8 +59,6 @@ namespace DEV_6.Converters
             return jsonElement;
         }
 
-        public XmlToJsonConverter() { }
-
         /// <summary>
         /// Converts Xml to Json
         /// </summary>

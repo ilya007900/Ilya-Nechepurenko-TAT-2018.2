@@ -19,11 +19,7 @@ namespace DEV_6.Json
         /// <returns>true if element is beginning</returns>
         private bool IsElementStarted()
         {
-            if (JsonString[Position] == '{')
-            {
-                return true;
-            }
-            return false;
+            return JsonString[Position] == '{';
         }
 
         /// <summary>
@@ -32,11 +28,7 @@ namespace DEV_6.Json
         /// <returns>true if element is ending</returns>
         private bool IsElementEnded()
         {
-            if (JsonString[Position] == '}')
-            {
-                return true;
-            }
-            return false;
+            return JsonString[Position] == '}';
         }
 
         /// <summary>
@@ -279,11 +271,7 @@ namespace DEV_6.Json
         /// <returns>true if array is beginning</returns>
         private bool IsArrayStarted()
         {
-            if (JsonString[Position] == '[')
-            {
-                return true;
-            }
-            return false;
+            return JsonString[Position] == '[';
         }
 
         /// <summary>
@@ -292,11 +280,7 @@ namespace DEV_6.Json
         /// <returns>true if array is ending</returns>
         private bool IsArrayEnded()
         {
-            if (JsonString[Position] == ']')
-            {
-                return true;
-            }
-            return false;
+            return JsonString[Position] == ']';
         }
 
         /// <summary>
@@ -305,14 +289,8 @@ namespace DEV_6.Json
         /// <returns>true if string is beginning or ending</returns>
         private bool IsStringStartedOrEnded()
         {
-            if (JsonString[Position] == '"')
-            {
-                return true;
-            }
-            return false;
+            return JsonString[Position] == '"';
         }
-
-        public JsonParser() { }
 
         /// <summary>
         /// Parses json string to Json

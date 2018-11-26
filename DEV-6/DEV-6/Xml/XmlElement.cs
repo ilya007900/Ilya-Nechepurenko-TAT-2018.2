@@ -2,9 +2,6 @@
 
 namespace DEV_6.Xml
 {
-    /// <summary>
-    /// This class keeps xml element
-    /// </summary>
     class XmlElement
     {
         public XmlTag Tag { get; set; }
