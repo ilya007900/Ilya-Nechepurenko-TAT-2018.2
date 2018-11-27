@@ -5,33 +5,35 @@ using System.Linq;
 namespace DEV_5
 {
     /// <summary>
-    /// Keeps cars and methods to manipulation
+    /// Provides methods to manipulation with collection
     /// </summary>
-    class Collection
+    abstract class Collection
     {
-        public List<Car> Cars { get; set; }
-
-        public Collection()
-        {
-            Cars = new List<Car>();
-        }
+        protected List<Car> Cars { get; set; }
 
         /// <summary>
-        /// Counts number of brands
+        /// Adds new car in collection
         /// </summary>
-        /// <returns>number of brands</returns>
-        public int CountTypes()
+        /// <param name="car">Car for add</param>
+        public void AddInCollection(Car car)
         {
-            return Cars.GroupBy(x => x.Brand).Count();
-        }
+            Car tempCar = Cars.Find(x => x.Brand == car.Brand && x.Model == car.Model);
 
-        /// <summary>
-        /// Counts number of cars
-        /// </summary>
-        /// <returns>number of cars</returns>
-        public int CountAll()
-        {
-            return Cars.Sum(x => x.Count);
+            if (tempCar != null)
+            {
+                if (tempCar.Price == car.Price)
+                {
+                    tempCar.Count += car.Count;
+                }
+                else
+                {
+                    throw new Exception("Incorrect car input");
+                }
+            }
+            else
+            {
+                Cars.Add(car);
+            }
         }
 
         /// <summary>
@@ -48,34 +50,28 @@ namespace DEV_5
         /// </summary>
         /// <param name="brand"></param>
         /// <returns>average price of brand</returns>
-        public double AveragePiceType(string brand)
+        public double AveragePriceType(string brand)
         {
-            return Cars.Where(x => x.Brand == brand).Average(x => x.Price);
+            brand = brand.ToLower();
+            return Cars.Where(x => x.Brand.ToLower() == brand).Average(x => x.Price);
         }
 
         /// <summary>
-        /// Adds new car in collection
+        /// Counts number of cars
         /// </summary>
-        /// <param name="car">Car for add</param>
-        public void AddInCollection(Car car)
+        /// <returns>number of cars</returns>
+        public int CountAll()
         {
-            Car tempCar = Cars.Find(x => x.Brand == car.Brand && x.Model == car.Model);
+            return Cars.Sum(x => x.Count);
+        }
 
-            if (tempCar!=null)
-            {
-                if (tempCar.Price == car.Price)
-                {
-                    tempCar.Count += car.Count;
-                }
-                else
-                {
-                    throw new Exception("Incorrect car input");
-                }
-            }
-            else
-            {
-                Cars.Add(car);
-            }
+        /// <summary>
+        /// Counts number of brands
+        /// </summary>
+        /// <returns>number of brands</returns>
+        public int CountTypes()
+        {
+            return Cars.GroupBy(x => x.Brand).Count();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace DEV_5
         /// </summary>
         public void Execute()
         {
-            Console.WriteLine(Reciver.AveragePiceType(Brand));
+            Console.WriteLine(Reciver.AveragePriceType(Brand));
         }
     }
 }
