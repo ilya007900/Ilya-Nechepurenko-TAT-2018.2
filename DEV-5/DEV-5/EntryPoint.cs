@@ -14,13 +14,12 @@ namespace DEV_5
         {
             try
             {
-                Collection collection = new TrucksCollection();
+                Collection collection = new Collection();
                 CommandFactory commandFactory = new CommandFactory();
-                Console.WriteLine("Do you want to add cars in collection? (y/n)");
 
                 while (Console.ReadLine().ToLower() != "n")
                 {
-                    ICommand command = new AddInCollectionCommand(collection, new Car("Man", "M550", 1, 80000));
+                    ICommand command = new AddInCollectionCommand(collection, CarGetter.GetCarFromConsole());
                     command.Execute();
                     Console.WriteLine("Continue adding? (y/n)");
                 }
