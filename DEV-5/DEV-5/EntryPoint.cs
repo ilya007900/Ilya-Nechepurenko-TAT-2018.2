@@ -16,13 +16,13 @@ namespace DEV_5
             {
                 Collection collection = new Collection();
                 CommandFactory commandFactory = new CommandFactory();
-
-                while (Console.ReadLine().ToLower() != "n")
+                do
                 {
                     ICommand command = new AddInCollectionCommand(collection, CarGetter.GetCarFromConsole());
                     command.Execute();
                     Console.WriteLine("Continue adding? (y/n)");
                 }
+                while (Console.ReadLine().ToLower() != "n");
 
                 while (true)
                 {
