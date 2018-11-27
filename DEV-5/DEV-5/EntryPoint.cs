@@ -3,21 +3,40 @@
 namespace DEV_5
 {
     /// <summary>
-    /// Provides methods to manipulate with collection
+    /// Entry point of programm
     /// </summary>
     class EntryPoint
     {
         /// <summary>
-        /// Initializes collection, collection manipulator and client classes.
+        /// Initializes collection
         /// </summary>
         static void Main()
         {
             try
             {
-                Collection collection = new Collection();
-                CollectionManipulator manipulator = new CollectionManipulator();
-                Client client = new Client();
-                client.Run(collection, manipulator);
+                Collection collection = new TrucksCollection();
+                CommandFactory commandFactory = new CommandFactory();
+                Console.WriteLine("Do you want to add cars in collection? (y/n)");
+
+                while (Console.ReadLine().ToLower() != "n")
+                {
+                    ICommand command = new AddInCollectionCommand(collection, new Car("Man", "M550", 1, 80000));
+                    command.Execute();
+                    Console.WriteLine("Continue adding? (y/n)");
+                }
+
+                while (true)
+                {
+                    Console.WriteLine("Input command");
+                    ICommand command = commandFactory.GetCommand(Console.ReadLine(), collection);
+
+                    if (command == null)
+                    {
+                        break;
+                    }
+
+                    command.Execute();
+                }
             }
             catch (Exception ex)
             {

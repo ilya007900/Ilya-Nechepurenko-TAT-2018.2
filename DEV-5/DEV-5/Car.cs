@@ -1,10 +1,6 @@
-﻿using System;
-
+﻿
 namespace DEV_5
 {
-    /// <summary>
-    /// Keeps car
-    /// </summary>
     class Car
     {
         public string Brand { get; set; }
@@ -18,22 +14,6 @@ namespace DEV_5
             Model = model;
             Count = count;
             Price = price;
-        }
-
-        public Car(string brand, string model, string count, string price)
-        {
-            Brand = brand;
-            Model = model;
-            if(!int.TryParse(count, out int tempCount))
-            {
-                throw new ArgumentException("Can't parse string count to int");
-            }
-            Count = tempCount;
-            if (!int.TryParse(price, out int tempPrice))
-            {
-                throw new ArgumentException("Can't parse string price to int");
-            }
-            Price = tempPrice;
         }
     }
 }
