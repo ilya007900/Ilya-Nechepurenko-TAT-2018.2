@@ -38,7 +38,7 @@ namespace DEV_5
         /// <summary>
         /// Counts average price
         /// </summary>
-        /// <returns>average price</returns>
+        /// <returns>Average price</returns>
         public double AveragePrice()
         {
             return Cars.Average(x => x.Price);
@@ -47,8 +47,8 @@ namespace DEV_5
         /// <summary>
         /// Counts average price of brand
         /// </summary>
-        /// <param name="brand"></param>
-        /// <returns>average price of brand</returns>
+        /// <param name="brand">Car brand</param>
+        /// <returns>Average price of brand</returns>
         public double AveragePriceType(string brand)
         {
             brand = brand.ToLower();
@@ -58,7 +58,7 @@ namespace DEV_5
         /// <summary>
         /// Counts number of cars
         /// </summary>
-        /// <returns>number of cars</returns>
+        /// <returns>Number of cars</returns>
         public int CountAll()
         {
             return Cars.Sum(x => x.Count);
@@ -67,7 +67,7 @@ namespace DEV_5
         /// <summary>
         /// Counts number of brands
         /// </summary>
-        /// <returns>number of brands</returns>
+        /// <returns>Number of brands</returns>
         public int CountTypes()
         {
             return Cars.GroupBy(x => x.Brand).Count();

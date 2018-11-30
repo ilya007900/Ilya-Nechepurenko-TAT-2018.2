@@ -3,7 +3,7 @@
 namespace DEV_5
 {
     /// <summary>
-    /// Command that output average price to console
+    /// Command that outputs average price to console
     /// </summary>
     class AveragePriceCommand : ICommand
     {
@@ -15,7 +15,7 @@ namespace DEV_5
         }
 
         /// <summary>
-        /// Execute command that output average price to console
+        /// Executes command that outputs average price to console
         /// </summary>
         public void Execute()
         {

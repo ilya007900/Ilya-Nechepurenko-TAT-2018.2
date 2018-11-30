@@ -3,7 +3,7 @@
 namespace DEV_5
 {
     /// <summary>
-    /// Command that output count of brands to console
+    /// Command that outputs count of brands to console
     /// </summary>
     class CountTypesCommand : ICommand
     {
@@ -15,7 +15,7 @@ namespace DEV_5
         }
 
         /// <summary>
-        /// Execute command that output count of brands to console
+        /// Executes command that outputs count of brands to console
         /// </summary>
         public void Execute()
         {

@@ -16,7 +16,7 @@ namespace DEV_5
         }
 
         /// <summary>
-        /// Execute command that adds car in collection
+        /// Executes command that adds car in collection
         /// </summary>
         public void Execute()
         {
