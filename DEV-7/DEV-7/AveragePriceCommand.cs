@@ -4,9 +4,9 @@ namespace DEV_7
 {
     class AveragePriceCommand : ICommand
     {
-        readonly ICollectionInfo reciver;
+        readonly CarCollection reciver;
 
-        public AveragePriceCommand(ICollectionInfo collection)
+        public AveragePriceCommand(CarCollection collection)
         {
             reciver = collection;
         }

@@ -1,39 +1,60 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DEV_7
 {
     class CommandsFactory
     {
-        private static readonly string[] Commands =
+        private static readonly string[] commands =
         {
-            "average price",
-            "average price ",
-            "count all",
-            "count types",
+            "average price car",
+            "average price truck",
+            "average price car ",
+            "average price truck ",
+            "count all car",
+            "count all truck",
+            "count types car",
+            "count types truck",
             "execute"
         };
 
-        public ICommand GetCommand(string commandName, ICollectionInfo collection)
+        public ICommand GetCommand(string commandName, List<CarCollection> collections)
         {
             string command = commandName.ToLower();
 
-            if (command == Commands[0])
+            if (command == commands[0])
             {
-                return new AveragePriceCommand(collection);
+                return new AveragePriceCommand(collections[0]);
             }
-            else if (command.StartsWith(Commands[1]))
+            else if (command == commands[1])
             {
-                return new AveragePriceTypeCommand(collection, command.Substring(Commands[1].Length));
+                return new AveragePriceCommand(collections[1]);
             }
-            else if (command == Commands[2])
+            else if (command.StartsWith(commands[2]))
             {
-                return new CountAllCommand(collection);
+                return new AveragePriceTypeCommand(collections[0], command.Substring(commands[2].Length));
             }
-            else if (command == Commands[3])
+            else if (command.StartsWith(commands[3]))
             {
-                return new CountTypesCommand(collection);
+                return new AveragePriceTypeCommand(collections[1], command.Substring(commands[3].Length));
             }
-            else if (command == Commands[4])
+            else if (command == commands[4])
+            {
+                return new CountAllCommand(collections[0]);
+            }
+            else if (command == commands[5])
+            {
+                return new CountAllCommand(collections[1]);
+            }
+            else if (command == commands[6])
+            {
+                return new CountTypesCommand(collections[0]);
+            }
+            else if (command == commands[7])
+            {
+                return new CountTypesCommand(collections[1]);
+            }
+            else if (command == commands[8])
             {
                 return null;
             }

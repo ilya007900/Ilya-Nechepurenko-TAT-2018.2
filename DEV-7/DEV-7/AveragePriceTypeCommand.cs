@@ -4,10 +4,10 @@ namespace DEV_7
 {
     class AveragePriceTypeCommand : ICommand
     {
-        readonly ICollectionInfo reciver;
+        readonly CarCollection reciver;
         readonly string brand;
 
-        public AveragePriceTypeCommand(ICollectionInfo collection, string brand)
+        public AveragePriceTypeCommand(CarCollection collection, string brand)
         {
             this.brand = brand;
             reciver = collection;

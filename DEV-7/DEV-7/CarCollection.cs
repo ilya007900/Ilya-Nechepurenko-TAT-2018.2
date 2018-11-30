@@ -3,28 +3,9 @@ using System.Linq;
 
 namespace DEV_7
 {
-    class CarCollection : ICollectionInfo
+    abstract class CarCollection
     {
-        List<Car> Cars { get; set; }
-
-        public CarCollection()
-        {
-            Cars = new List<Car>
-            {
-                new Car("BMW", "M5", 180000, 1),
-                new Car("BMW", "X6", 80000, 1)
-            };
-        }
-
-        public int CountAll()
-        {
-            return Cars.Count;
-        }
-
-        public int CountTypes()
-        {
-            return Cars.GroupBy(x => x.Brand).Count();
-        }
+        protected List<Car> Cars { get; set; }
 
         public double GetAveragePrice()
         {
@@ -33,7 +14,18 @@ namespace DEV_7
 
         public double GetAverageTypePrice(string brand)
         {
-            return Cars.Where(x => x.Brand == brand).Average(x => x.Price);
+            brand = brand.ToLower();
+            return Cars.Where(x => x.Brand.ToLower() == brand).Average(x => x.Price);
+        }
+
+        public int CountAll()
+        {
+            return Cars.Sum(x => x.Count);
+        }
+
+        public int CountTypes()
+        {
+            return Cars.GroupBy(x => x.Brand).Count();
         }
     }
 }

@@ -4,9 +4,9 @@ namespace DEV_7
 {
     class CountAllCommand : ICommand
     {
-        readonly ICollectionInfo reciver;
+        readonly CarCollection reciver;
 
-        public CountAllCommand(ICollectionInfo collection)
+        public CountAllCommand(CarCollection collection)
         {
             reciver = collection;
         }
