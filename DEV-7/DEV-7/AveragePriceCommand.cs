@@ -2,6 +2,9 @@
 
 namespace DEV_7
 {
+    /// <summary>
+    /// Command that outputs average price to console
+    /// </summary>
     class AveragePriceCommand : ICommand
     {
         readonly CarCollection reciver;
@@ -11,6 +14,9 @@ namespace DEV_7
             reciver = collection;
         }
 
+        /// <summary>
+        /// Executes command that outputs average price to console
+        /// </summary>
         public void Execute()
         {
             Console.WriteLine(reciver.GetAveragePrice());

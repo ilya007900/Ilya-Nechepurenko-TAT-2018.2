@@ -3,14 +3,25 @@ using System.Collections.Generic;
 
 namespace DEV_7
 {
-    class Program
+    /// <summary>
+    /// Entry point of programm
+    /// </summary>
+    class EntryPoint
     {
+        /// <summary>
+        /// Entry point of programm
+        /// </summary>
+        /// <param name="args">pathes to files</param>
         static void Main(string[] args)
         {
             try
             {
-                string passengerCarsXml = "passengerCars.xml";
-                string trucksXml = "trucks.xml";
+                if (args.Length != 2)
+                {
+                    throw new Exception("Incorrect parameters");
+                }
+                string passengerCarsXml = args[0];
+                string trucksXml = args[1];
                 List<ICommand> commands = new List<ICommand>();
                 List<CarCollection> collections = new List<CarCollection>
                 {

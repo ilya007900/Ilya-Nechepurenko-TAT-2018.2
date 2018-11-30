@@ -3,8 +3,16 @@ using System.Xml;
 
 namespace DEV_7
 {
+    /// <summary>
+    /// Gets cars
+    /// </summary>
     static class CarsGetter
     {
+        /// <summary>
+        /// Gets cars from xml file
+        /// </summary>
+        /// <param name="filePath">Path to xml file</param>
+        /// <returns>Cars from xml file</returns>
         public static List<Car> GetCarsFromXml(string filePath)
         {
             List<Car> cars = new List<Car>();

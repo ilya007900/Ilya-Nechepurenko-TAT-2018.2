@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace DEV_7
 {
+    /// <summary>
+    /// Creates commands
+    /// </summary>
     class CommandsFactory
     {
         private static readonly string[] commands =
@@ -18,6 +21,12 @@ namespace DEV_7
             "execute"
         };
 
+        /// <summary>
+        /// Gets command
+        /// </summary>
+        /// <param name="commandName">Command name</param>
+        /// <param name="collections">Collections to manipulation</param>
+        /// <returns>Command</returns>
         public ICommand GetCommand(string commandName, List<CarCollection> collections)
         {
             string command = commandName.ToLower();
