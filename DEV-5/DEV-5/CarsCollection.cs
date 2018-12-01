@@ -31,6 +31,10 @@ namespace DEV_5
             }
             else
             {
+                if (car.Price <= 0 || car.Count <= 0)
+                {
+                    throw new Exception("Incorrect car input");
+                }
                 Cars.Add(car);
             }
         }
