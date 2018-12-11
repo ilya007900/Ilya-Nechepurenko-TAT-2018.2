@@ -5,8 +5,15 @@ using OpenQA.Selenium.Support.UI;
 
 namespace DEV_8
 {
+    /// <summary>
+    /// This program outputs unread messages to console
+    /// </summary>
     class EntryPoint
     {
+        /// <summary>
+        /// Entry point of program
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             try

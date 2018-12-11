@@ -4,10 +4,16 @@ using OpenQA.Selenium.Support.UI;
 
 namespace DEV_8
 {
+    /// <summary>
+    /// Provides methods to manipulation with VK pages
+    /// </summary>
     class VKTester
     {
         private const string url = "https://vk.com";
 
+        /// <summary>
+        /// Redirects to dialogs
+        /// </summary>
         private void GoToDialogs()
         {
             VKHomePage VKHomePage = new VKHomePage(Wait);
@@ -23,6 +29,11 @@ namespace DEV_8
             Wait = wait;
         }
 
+        /// <summary>
+        /// Logs in VK
+        /// </summary>
+        /// <param name="login">Login from page</param>
+        /// <param name="password">Password from page</param>
         public void LogIn(string login, string password)
         {
             Driver.Navigate().GoToUrl(url);
@@ -30,6 +41,12 @@ namespace DEV_8
             VKLoginPage.LogIn(login, password);
         }
 
+        /// <summary>
+        /// Gets unread messages
+        /// </summary>
+        /// <param name="login">Login from page</param>
+        /// <param name="password">Password from page</param>
+        /// <returns>Unread messages</returns>
         public List<string> GetUnreadMessages(string login, string password)
         {
             LogIn(login, password);
