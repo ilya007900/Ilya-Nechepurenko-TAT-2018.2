@@ -6,7 +6,7 @@ namespace DEV_8
 {
     class VKMessagesPage
     {
-        const string UnreadMessagesXPath = "//li[contains(@class,'nim-dialog_unread')]";
+        public const string UnreadMessagesXPath = "//li[contains(@class,'nim-dialog_unread')]";
 
         public VKMessagesPage(WebDriverWait wait)
         {

@@ -9,36 +9,14 @@ namespace DEV_8
     /// </summary>
     class VKTester
     {
-        private const string url = "https://vk.com";
-
-        /// <summary>
-        /// Redirects to dialogs
-        /// </summary>
-        private void GoToDialogs()
-        {
-            VKHomePage VKHomePage = new VKHomePage(Wait);
-            VKHomePage.Messages.Click();
-        }
-
         public IWebDriver Driver { get; set; }
         public WebDriverWait Wait { get; set; }
+        public const string Url = "https://vk.com";
 
         public VKTester(IWebDriver driver, WebDriverWait wait)
         {
             Driver = driver;
             Wait = wait;
-        }
-
-        /// <summary>
-        /// Logs in VK
-        /// </summary>
-        /// <param name="login">Login from page</param>
-        /// <param name="password">Password from page</param>
-        public void LogIn(string login, string password)
-        {
-            Driver.Navigate().GoToUrl(url);
-            VKLoginPage VKLoginPage = new VKLoginPage(Wait);
-            VKLoginPage.LogIn(login, password);
         }
 
         /// <summary>
@@ -49,9 +27,10 @@ namespace DEV_8
         /// <returns>Unread messages</returns>
         public List<string> GetUnreadMessages(string login, string password)
         {
-            LogIn(login, password);
-            GoToDialogs();
-            VKMessagesPage VKMessagesPage = new VKMessagesPage(Wait);
+            Driver.Navigate().GoToUrl(Url);
+            VKLoginPage VKLoginPage = new VKLoginPage(Wait);
+            VKHomePage VKHomePage = VKLoginPage.LogIn(login, password); 
+            VKMessagesPage VKMessagesPage = VKHomePage.MessagesClick();
             List<string> messages = new List<string>();
             foreach (var dialog in VKMessagesPage.UnreadDialogs)
             {

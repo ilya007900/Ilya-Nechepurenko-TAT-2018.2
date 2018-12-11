@@ -22,8 +22,8 @@ namespace DEV_8
                 driver.Manage().Window.Maximize();
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-                VKTester messagesGetter = new VKTester(driver, wait);
-                foreach (string messsage in messagesGetter.GetUnreadMessages(Data.Login, Data.Password))
+                VKTester VKTester = new VKTester(driver, wait);
+                foreach (string messsage in VKTester.GetUnreadMessages(Data.Login, Data.Password))
                 {
                     Console.WriteLine(messsage);
                 }

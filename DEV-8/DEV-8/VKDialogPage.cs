@@ -6,7 +6,7 @@ namespace DEV_8
 {
     class VKDialogPage
     {
-        const string UnreadMessagesXPath = "//h4[contains(@class,'unread_bar')]/following-sibling::div[1]//div[contains(@class,'text')]";
+        public const string UnreadMessagesXPath = "//h4[contains(@class,'unread_bar')]/following-sibling::div[1]//div[contains(@class,'text')]";
 
         public VKDialogPage(WebDriverWait wait)
         {
