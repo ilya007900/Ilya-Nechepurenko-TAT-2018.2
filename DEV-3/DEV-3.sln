@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DEV-3", "DEV-3\DEV-3.csproj", "{ECB9E612-C280-4240-B264-BBDA7DB9E4FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DEV-3", "DEV-3\DEV-3.csproj", "{ECB9E612-C280-4240-B264-BBDA7DB9E4FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DEV-3Tests", "IntToNewBaseConverterTests\DEV-3Tests.csproj", "{A7FCFA10-10D1-4E22-87BA-7622CD56B5CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{ECB9E612-C280-4240-B264-BBDA7DB9E4FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECB9E612-C280-4240-B264-BBDA7DB9E4FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECB9E612-C280-4240-B264-BBDA7DB9E4FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FCFA10-10D1-4E22-87BA-7622CD56B5CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FCFA10-10D1-4E22-87BA-7622CD56B5CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FCFA10-10D1-4E22-87BA-7622CD56B5CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FCFA10-10D1-4E22-87BA-7622CD56B5CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
